@@ -1,0 +1,11 @@
+services:
+  web:
+    build: .
+    image: videology:latest
+    restart: unless-stopped
+    ports:
+      - "80:3000"
+    volumes:
+      - ./data:/data
+    env_file:
+      - .env.production
