@@ -1,7 +1,17 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  serverExternalPackages: ["@ffmpeg-installer/ffmpeg", "better-sqlite3"],
+  output: "standalone",
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "i.ytimg.com" },
+      { protocol: "https", hostname: "*.ytimg.com" },
+    ],
+  },
+  experimental: {
+    proxyClientMaxBodySize: "600mb",
+  },
 };
 
 export default nextConfig;

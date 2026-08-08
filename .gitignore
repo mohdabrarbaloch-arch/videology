@@ -39,3 +39,27 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# generated prisma client
+/generated
+
+# uploads
+/uploads
+/public/thumbnails
+/public/clips
+
+# database
+/dev.db
+/dev.db-journal
+/prisma/dev.db
+/prisma/dev.db-journal
+
+# logs
+*.log
+
+# editor tooling dirs
+.claude/
+.windsurf/
+
+# downloaded binary
+yt-dlp.exe
