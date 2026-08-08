@@ -4,6 +4,7 @@ import path from "path";
 import { v4 as uuidv4 } from "uuid";
 import { processTool } from "@/lib/tools";
 import { getTool } from "@/lib/tool-config";
+import { TOOLS_DIR } from "@/lib/paths";
 
 export const runtime = "nodejs";
 
@@ -33,7 +34,7 @@ export async function POST(request: NextRequest) {
       }
       const id = uuidv4();
       const ext = path.extname(file.name) || "";
-      const toolsDir = path.join(process.cwd(), "uploads", "tools");
+      const toolsDir = TOOLS_DIR;
       if (!fs.existsSync(toolsDir)) fs.mkdirSync(toolsDir, { recursive: true });
       inputPath = path.join(toolsDir, `${id}_in${ext}`);
       const buffer = Buffer.from(await file.arrayBuffer());

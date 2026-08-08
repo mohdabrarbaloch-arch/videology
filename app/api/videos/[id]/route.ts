@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
+import { THUMBNAIL_DIR } from "@/lib/paths";
 import fs from "fs";
 import path from "path";
 
@@ -59,7 +60,7 @@ export async function DELETE(
     fs.unlinkSync(video.audioPath);
   }
   if (video.thumbnailUrl && video.thumbnailUrl.startsWith("/thumbnails/")) {
-    const thumbPath = path.join(process.cwd(), "public", video.thumbnailUrl.replace(/^\//, ""));
+    const thumbPath = path.join(THUMBNAIL_DIR, path.basename(video.thumbnailUrl));
     if (fs.existsSync(thumbPath)) {
       fs.unlinkSync(thumbPath);
     }

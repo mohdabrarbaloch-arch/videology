@@ -8,9 +8,9 @@ import { v4 as uuidv4 } from "uuid";
 const execAsync = promisify(exec);
 const requireLocal = createRequire(import.meta.url);
 
-const UPLOADS_DIR = path.join(process.cwd(), "uploads");
-const AUDIO_DIR = path.join(UPLOADS_DIR, "audio");
-const THUMBNAIL_DIR = path.join(process.cwd(), "public", "thumbnails");
+const UPLOADS_DIR = process.env.UPLOADS_DIR || path.join(process.cwd(), "uploads");
+const AUDIO_DIR = process.env.UPLOADS_DIR ? path.join(process.env.UPLOADS_DIR, "audio") : path.join(UPLOADS_DIR, "audio");
+const THUMBNAIL_DIR = process.env.THUMBNAIL_DIR || path.join(process.cwd(), "public", "thumbnails");
 
 // yt-dlp: prefer the local executable bundled with the project, else system-wide
 const YT_DLP = (() => {

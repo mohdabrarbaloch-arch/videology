@@ -35,7 +35,7 @@ const FFMPEG_DIR = (() => {
 const YT_SPEED =
   "--http-chunk-size 10M --concurrent-fragments 8 --no-playlist --no-warnings --retries 3 --socket-timeout 30";
 
-const TOOLS_DIR = path.join(process.cwd(), "uploads", "tools");
+const TOOLS_DIR = process.env.TOOLS_DIR || path.join(process.cwd(), "uploads", "tools");
 
 function ensureDir() {
   if (!fs.existsSync(TOOLS_DIR)) fs.mkdirSync(TOOLS_DIR, { recursive: true });

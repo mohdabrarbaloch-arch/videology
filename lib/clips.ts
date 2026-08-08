@@ -5,6 +5,7 @@ import fs from "fs";
 import path from "path";
 import { v4 as uuidv4 } from "uuid";
 import type { TranscriptSegment } from "./transcriber";
+import { CLIPS_DIR as PATHS_CLIPS_DIR, WORK_DIR as PATHS_WORK_DIR } from "./paths";
 
 const execAsync = promisify(exec);
 const requireLocal = createRequire(import.meta.url);
@@ -34,8 +35,8 @@ const FFMPEG_DIR = (() => {
 const YT_SPEED =
   "--http-chunk-size 10M --concurrent-fragments 8 --no-playlist --no-warnings --retries 3 --socket-timeout 30";
 
-export const CLIPS_DIR = path.join(process.cwd(), "public", "clips");
-const WORK_DIR = path.join(process.cwd(), "uploads", "clips-work");
+export const CLIPS_DIR = PATHS_CLIPS_DIR;
+const WORK_DIR = PATHS_WORK_DIR;
 
 export interface ClipPlan {
   start: number;
