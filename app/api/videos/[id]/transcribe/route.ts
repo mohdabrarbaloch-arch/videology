@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { transcribeAudio } from "@/lib/transcriber";
+import { getLocalTemp } from "@/lib/storage";
+import fs from "fs";
 
 export async function POST(
   _request: NextRequest,
@@ -34,10 +36,12 @@ export async function POST(
     await db.transcript.delete({ where: { videoId: id } });
   }
 
+  let localAudio: string | null = null;
   try {
     await db.video.update({ where: { id }, data: { status: "transcribing" } });
 
-    const result = await transcribeAudio(video.audioPath);
+    localAudio = await getLocalTemp(video.audioPath);
+    const result = await transcribeAudio(localAudio);
 
     const failed = result.text.startsWith("Transcription failed");
 
@@ -60,5 +64,13 @@ export async function POST(
     console.error("Transcription error:", error);
     await db.video.update({ where: { id }, data: { status: "error" } });
     return NextResponse.json({ error: "Transcription failed" }, { status: 500 });
+  } finally {
+    if (localAudio && localAudio !== video.audioPath) {
+      try {
+        fs.unlinkSync(localAudio);
+      } catch {
+        // ignore
+      }
+    }
   }
 }

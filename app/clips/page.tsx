@@ -89,6 +89,36 @@ export default function ClipsPage() {
     }
   }
 
+  async function pollJob(jobId: string) {
+    try {
+      while (true) {
+        const res = await fetch(`/api/clips/job/${jobId}`);
+        if (!res.ok) throw new Error("Failed to check job status.");
+
+        const { job } = await res.json();
+        if (job?.progress) setStatus(String(job.progress));
+
+        if (job?.status === "done") {
+          setClips((job.result?.clips as Clip[]) || []);
+          setStatus("");
+          setProcessing(false);
+          return;
+        }
+
+        if (job?.status === "error") {
+          setError(String(job.error || "Failed to generate clips."));
+          setProcessing(false);
+          return;
+        }
+
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+      }
+    } catch {
+      setError("Something went wrong. Please try again.");
+      setProcessing(false);
+    }
+  }
+
   async function handleGenerate() {
     setError("");
     setClips(null);
@@ -96,11 +126,12 @@ export default function ClipsPage() {
     setProcessing(true);
 
     try {
-      const formData = new FormData();
-      formData.append("count", String(count));
-      formData.append("duration", String(duration));
-      formData.append("aspect", aspect);
-      formData.append("style", style);
+      const base: Record<string, string> = {
+        count: String(count),
+        duration: String(duration),
+        aspect,
+        style,
+      };
 
       if (mode === "upload") {
         if (!file) {
@@ -108,75 +139,87 @@ export default function ClipsPage() {
           setProcessing(false);
           return;
         }
-        formData.append("file", file);
-      } else {
-        const trimmedUrl = url.trim();
-        if (!trimmedUrl) {
-          setError("Please enter a YouTube URL.");
-          setProcessing(false);
+
+        // Cloud mode: upload straight to Supabase via a signed URL, then
+        // reference the storage key. Dev mode falls back to multipart.
+        const urlRes = await fetch("/api/clips/upload-url", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ name: file.name, type: file.type }),
+        });
+
+        if (urlRes.ok) {
+          const { key, uploadUrl } = await urlRes.json();
+
+          if (uploadUrl) {
+            setStatus("Uploading video...");
+            const putRes = await fetch(uploadUrl, { method: "PUT", body: file });
+            if (!putRes.ok) throw new Error("Video upload failed.");
+            const payload = {
+              ...base,
+              inputKey: key,
+              title: file.name.replace(/\.[^/.]+$/, ""),
+            };
+            const res = await fetch("/api/clips/generate", {
+              method: "POST",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify(payload),
+            });
+            if (!res.ok) {
+              const data = await res.json().catch(() => null);
+              throw new Error(data?.error || "Failed to start clip generation.");
+            }
+            const { jobId } = await res.json();
+            pollJob(jobId);
+            return;
+          }
+
+          // Dev mode multipart path.
+          const formData = new FormData();
+          for (const [k, v] of Object.entries(base)) formData.append(k, v);
+          formData.append("file", file);
+
+          const res = await fetch("/api/clips/generate", {
+            method: "POST",
+            body: formData,
+          });
+          if (!res.ok) {
+            const data = await res.json().catch(() => null);
+            throw new Error(data?.error || "Failed to start clip generation.");
+          }
+          const { jobId } = await res.json();
+          pollJob(jobId);
           return;
         }
-        if (!isValidUrl(trimmedUrl)) {
-          setError("Please enter a valid URL.");
-          setProcessing(false);
-          return;
-        }
-        formData.append("url", trimmedUrl);
+
+        throw new Error("Upload URL unavailable.");
       }
 
-      const res = await fetch("/api/clips/generate", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!res.ok || !res.body) {
-        const data = await res.json().catch(() => null);
-        setError(data?.error || "Failed to generate clips.");
+      const trimmedUrl = url.trim();
+      if (!trimmedUrl) {
+        setError("Please enter a YouTube URL.");
+        setProcessing(false);
+        return;
+      }
+      if (!isValidUrl(trimmedUrl)) {
+        setError("Please enter a valid URL.");
         setProcessing(false);
         return;
       }
 
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-      let buffer = "";
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        buffer += decoder.decode(value, { stream: true });
-
-        const blocks = buffer.split("\n\n");
-        buffer = blocks.pop() ?? "";
-
-        for (const block of blocks) {
-          let dataStr = "";
-          for (const line of block.split("\n")) {
-            if (line.startsWith("data:")) dataStr += line.slice(5).trim();
-          }
-          if (!dataStr) continue;
-
-          let data: Record<string, unknown>;
-          try {
-            data = JSON.parse(dataStr);
-          } catch {
-            continue;
-          }
-
-          if (data.type === "status") {
-            setStatus(String(data.message ?? ""));
-          } else if (data.type === "clips") {
-            setClips((data.clips as Clip[]) || []);
-            setProcessing(false);
-          } else if (data.type === "error") {
-            setError(String(data.message ?? "Failed to generate clips."));
-            setProcessing(false);
-          }
-        }
+      const res = await fetch("/api/clips/generate", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ ...base, url: trimmedUrl, title: "YouTube video" }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.error || "Failed to start clip generation.");
       }
-
-      setProcessing(false);
-    } catch {
-      setError("Something went wrong. Please try again.");
+      const { jobId } = await res.json();
+      pollJob(jobId);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
       setProcessing(false);
     }
   }

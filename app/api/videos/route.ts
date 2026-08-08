@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
+import { IS_CLOUD } from "@/lib/storage";
+import { triggerBackgroundFunction } from "@/lib/background";
 import { downloadYoutubeVideo, downloadDirectUrl, processUploadedFile } from "@/lib/video-processor";
 
 export async function GET() {
@@ -29,6 +31,39 @@ export async function POST(request: NextRequest) {
 
   try {
     const contentType = request.headers.get("content-type") || "";
+
+    // Cloud mode: the file is uploaded directly to Supabase Storage via a
+    // signed URL. The API route only receives the storage key.
+    if (IS_CLOUD) {
+      const body = await request.json();
+
+      const inputKey = String(body.inputKey || "").trim();
+      const url = String(body.url || "").trim();
+      const mode = String(body.mode || "url");
+
+      if (!inputKey && !url) {
+        return NextResponse.json(
+          { error: "Upload the video first or provide a URL." },
+          { status: 400 }
+        );
+      }
+
+      const video = await db.video.create({
+        data: {
+          userId: session.userId,
+          title: body.title || null,
+          source: inputKey ? "upload" : mode,
+          sourceType: inputKey ? String(body.fileType || "video") : "video",
+          originalUrl: url || null,
+          filePath: inputKey || null,
+          status: "processing",
+        },
+      });
+
+      await triggerBackgroundFunction("video-job", { videoId: video.id });
+
+      return NextResponse.json({ video });
+    }
 
     if (contentType.includes("multipart/form-data")) {
       const formData = await request.formData();

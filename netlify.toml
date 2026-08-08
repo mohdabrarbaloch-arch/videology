@@ -1,0 +1,7 @@
+[build]
+  command = "node scripts/fetch-tools.mjs && npx opennextjs-netlify@latest build"
+  publish = ".open-next"
+
+[functions]
+  directory = "netlify/functions"
+  included_files = ["bin/yt-dlp"]

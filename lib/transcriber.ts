@@ -2,10 +2,9 @@ import fs from "fs";
 import path from "path";
 import { exec } from "child_process";
 import { promisify } from "util";
-import { createRequire } from "module";
+import { resolveFfmpegPath } from "./binaries";
 
 const execAsync = promisify(exec);
-const requireLocal = createRequire(import.meta.url);
 
 export interface TranscriptSegment {
   start: number;
@@ -60,13 +59,7 @@ function getProvider(): ProviderConfig | null {
 }
 
 function getFfmpegPath(): string {
-  try {
-    const installer = requireLocal("@ffmpeg-installer/ffmpeg");
-    if (installer.path && fs.existsSync(installer.path)) return installer.path;
-  } catch {
-    // ignore
-  }
-  return process.env.FFMPEG_PATH || "ffmpeg";
+  return resolveFfmpegPath();
 }
 
 async function getAudioDuration(audioPath: string): Promise<number> {

@@ -3,14 +3,20 @@ import fs from "fs";
 import path from "path";
 import { Readable } from "stream";
 import { THUMBNAIL_DIR } from "@/lib/paths";
+import { IS_CLOUD, getPublicUrl } from "@/lib/storage";
 
 export const runtime = "nodejs";
 
 export async function GET(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ file: string }> }
 ) {
   const { file } = await params;
+
+  if (IS_CLOUD) {
+    return NextResponse.redirect(getPublicUrl(`thumbnails/${path.basename(file)}`));
+  }
+
   const safeName = path.basename(file);
   const filePath = path.join(THUMBNAIL_DIR, safeName);
 

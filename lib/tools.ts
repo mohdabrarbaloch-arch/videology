@@ -1,41 +1,13 @@
 import { exec } from "child_process";
 import { promisify } from "util";
-import { createRequire } from "module";
 import fs from "fs";
 import path from "path";
 import { v4 as uuidv4 } from "uuid";
 import { ZipArchive } from "archiver";
+import { FFMPEG, FFMPEG_DIR, YT_DLP, YT_SPEED } from "./binaries";
+import { TOOLS_DIR } from "./paths";
 
 const execAsync = promisify(exec);
-const requireLocal = createRequire(import.meta.url);
-
-const FFMPEG = (() => {
-  try {
-    const installer = requireLocal("@ffmpeg-installer/ffmpeg");
-    if (installer.path && fs.existsSync(installer.path)) return `"${installer.path}"`;
-  } catch {
-    // fall through
-  }
-  return process.env.FFMPEG_PATH || "ffmpeg";
-})();
-
-const YT_DLP = (() => {
-  const local = path.join(process.cwd(), "yt-dlp.exe");
-  const base = fs.existsSync(local) ? `"${local}"` : process.env.YT_DLP_PATH || "yt-dlp";
-  return `${base} --js-runtimes node`;
-})();
-
-const FFMPEG_DIR = (() => {
-  const p = FFMPEG.replace(/^"|"$/g, "");
-  const dir = path.dirname(p);
-  return dir !== "." ? `--ffmpeg-location "${dir}"` : "";
-})();
-
-// Chunked parallel downloads defeat YouTube's per-connection throttling (~5-10x faster)
-const YT_SPEED =
-  "--http-chunk-size 10M --concurrent-fragments 8 --no-playlist --no-warnings --retries 3 --socket-timeout 30";
-
-const TOOLS_DIR = process.env.TOOLS_DIR || path.join(process.cwd(), "uploads", "tools");
 
 function ensureDir() {
   if (!fs.existsSync(TOOLS_DIR)) fs.mkdirSync(TOOLS_DIR, { recursive: true });

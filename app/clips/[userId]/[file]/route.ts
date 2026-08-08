@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import { Readable } from "stream";
 import { CLIPS_DIR } from "@/lib/clips";
+import { IS_CLOUD, getPublicUrl } from "@/lib/storage";
 
 export const runtime = "nodejs";
 
@@ -15,6 +16,13 @@ export async function GET(
   { params }: { params: Promise<{ userId: string; file: string }> }
 ) {
   const { userId, file } = await params;
+
+  if (IS_CLOUD) {
+    const key = `clips/${userId}/${path.basename(file)}`;
+    const publicUrl = getPublicUrl(key);
+    return NextResponse.redirect(publicUrl);
+  }
+
   const safeName = path.basename(file);
   const safeUser = path.basename(userId);
   const filePath = path.join(CLIPS_DIR, safeUser, safeName);

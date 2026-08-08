@@ -83,6 +83,40 @@ export default function AnalyzePage() {
           return;
         }
 
+        // Cloud mode: upload straight to Supabase via a signed URL, then
+        // reference the storage key. Dev mode falls back to multipart.
+        const urlRes = await fetch("/api/videos/upload-url", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name: file.name, type: file.type }),
+        });
+
+        if (urlRes.ok) {
+          const { key, uploadUrl } = await urlRes.json();
+
+          if (uploadUrl) {
+            const putRes = await fetch(uploadUrl, { method: "PUT", body: file });
+            if (!putRes.ok) {
+              setError("Video upload failed. Please try again.");
+              setProcessing(false);
+              return;
+            }
+            const res = await fetch("/api/videos", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ inputKey: key, fileType: file.type }),
+            });
+            const data = await res.json();
+            if (!res.ok) {
+              setError(data.error || "Failed to upload video");
+              setProcessing(false);
+              return;
+            }
+            router.push(`/video/${data.video.id}`);
+            return;
+          }
+        }
+
         const formData = new FormData();
         formData.append("file", file);
 
