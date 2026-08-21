@@ -24,7 +24,7 @@ export default function ThreeBackground() {
 
     async function init() {
       const lowCores = (navigator.hardwareConcurrency ?? 4) <= 2;
-      const lowMemory = (navigator.deviceMemory ?? 4) <= 2;
+      const lowMemory = ((navigator as any).deviceMemory ?? 4) <= 2;
       const reducedMotion =
         typeof window.matchMedia === "function" &&
         window.matchMedia("(prefers-reduced-motion: reduce)").matches;
