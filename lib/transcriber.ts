@@ -3,6 +3,7 @@ import path from "path";
 import { exec } from "child_process";
 import { promisify } from "util";
 import { resolveFfmpegPath } from "./binaries";
+import { isOpenRouterKey } from "./shell";
 
 const execAsync = promisify(exec);
 
@@ -20,10 +21,6 @@ export interface TranscriptionResult {
 
 const OPENAI_KEY = process.env.OPENAI_API_KEY;
 const GROQ_KEY = process.env.GROQ_API_KEY;
-
-function isOpenRouterKey(key: string): boolean {
-  return key.startsWith("sk-or-v1-");
-}
 
 interface ProviderConfig {
   url: string;

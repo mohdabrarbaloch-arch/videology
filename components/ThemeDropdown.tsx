@@ -12,6 +12,7 @@ export default function ThemeDropdown({
 }) {
   const { theme, setTheme, themes } = useTheme();
   const [open, setOpen] = useState(false);
+  const [showAll, setShowAll] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -104,14 +105,23 @@ export default function ThemeDropdown({
           {GROUPS.map((group) => {
             const groupThemes = themes.filter((t) => t.group === group);
             if (groupThemes.length === 0) return null;
+            const visible = group === "daisyUI" && !showAll ? groupThemes.slice(0, 6) : groupThemes;
             return (
               <div key={group}>
                 <p className="px-3 pb-1 pt-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-(--fg)/35">
                   {group}
                 </p>
                 <div className="grid grid-cols-2 gap-1">
-                  {groupThemes.map(renderOption)}
+                  {visible.map(renderOption)}
                 </div>
+                {group === "daisyUI" && !showAll && groupThemes.length > 6 && (
+                  <button
+                    onClick={() => setShowAll(true)}
+                    className="mt-1 w-full rounded-lg px-2.5 py-1.5 text-center text-[10px] font-medium text-(--accent-2) transition hover:bg-(--surface-2)"
+                  >
+                    Show all {groupThemes.length} themes
+                  </button>
+                )}
               </div>
             );
           })}

@@ -11,7 +11,6 @@ RUN npm ci
 FROM node:22-slim AS builder
 WORKDIR /app
 ENV NODE_ENV=production
-ENV DATABASE_URL=file:/data/app.db
 RUN apt-get update \
   && apt-get install -y --no-install-recommends ca-certificates ffmpeg \
   && rm -rf /var/lib/apt/lists/*
@@ -25,14 +24,13 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
-ENV DATABASE_URL=file:/data/app.db
 RUN apt-get update \
   && apt-get install -y --no-install-recommends ca-certificates curl ffmpeg \
   && rm -rf /var/lib/apt/lists/* \
   && curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp \
   && chmod +x /usr/local/bin/yt-dlp
 
-# prisma client + full node_modules (better-sqlite3, ffmpeg binaries, prisma CLI)
+# prisma client + node_modules
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/generated ./generated
 # next standalone server

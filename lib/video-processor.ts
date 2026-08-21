@@ -5,6 +5,7 @@ import path from "path";
 import { v4 as uuidv4 } from "uuid";
 import { FFMPEG, FFMPEG_DIR, YT_DLP, YT_SPEED } from "./binaries";
 import { UPLOADS_DIR, AUDIO_DIR, THUMBNAIL_DIR } from "./paths";
+import { sanitizeUrl } from "./shell";
 
 const execAsync = promisify(exec);
 
@@ -62,8 +63,9 @@ async function run(command: string, timeout: number): Promise<void> {
 }
 
 export async function getYoutubeInfo(url: string): Promise<VideoInfo> {
+  const safeUrl = sanitizeUrl(url);
   const { stdout } = await execAsync(
-    `${YT_DLP} --dump-json --no-download --no-playlist --no-warnings --socket-timeout 15 "${url}"`,
+    `${YT_DLP} --dump-json --no-download --no-playlist --no-warnings --socket-timeout 15 "${safeUrl}"`,
     { timeout: 30000 }
   );
   const info = JSON.parse(stdout);
@@ -76,12 +78,13 @@ export async function getYoutubeInfo(url: string): Promise<VideoInfo> {
 
 export async function downloadYoutubeVideo(url: string): Promise<{ filePath: string; audioPath: string; title: string; thumbnail: string; duration: number }> {
   ensureDirs();
+  const safeUrl = sanitizeUrl(url);
   const id = uuidv4();
   const audioPath = path.join(AUDIO_DIR, `${id}.m4a`);
 
   let info: VideoInfo;
   try {
-    info = await getYoutubeInfo(url);
+    info = await getYoutubeInfo(safeUrl);
   } catch {
     info = { title: "Untitled Video", duration: 0, thumbnail: "" };
   }
@@ -92,13 +95,13 @@ export async function downloadYoutubeVideo(url: string): Promise<{ filePath: str
   // Download audio directly as m4a (no conversion needed, Whisper supports it)
   try {
     await run(
-      `${YT_DLP} ${YT_SPEED} ${FFMPEG_DIR} -f "bestaudio[ext=m4a]/bestaudio" --extract-audio --audio-format m4a --audio-quality 5 -o "${audioPath}" "${url}"`,
+      `${YT_DLP} ${YT_SPEED} ${FFMPEG_DIR} -f "bestaudio[ext=m4a]/bestaudio" --extract-audio --audio-format m4a --audio-quality 5 -o "${audioPath}" "${safeUrl}"`,
       300000
     );
   } catch {
     // Last resort: download best audio stream without conversion
     await run(
-      `${YT_DLP} ${YT_SPEED} -f bestaudio -o "${audioPath}" "${url}"`,
+      `${YT_DLP} ${YT_SPEED} -f bestaudio -o "${audioPath}" "${safeUrl}"`,
       300000
     );
   }
@@ -132,11 +135,12 @@ export async function processUploadedFile(file: File): Promise<{ filePath: strin
 
 export async function downloadDirectUrl(url: string): Promise<{ filePath: string; audioPath: string; title: string; thumbnail: string | null }> {
   ensureDirs();
+  const safeUrl = sanitizeUrl(url);
   const id = uuidv4();
   const audioPath = path.join(AUDIO_DIR, `${id}.mp3`);
 
   const { stdout: headers } = await execAsync(
-    `curl -sI "${url}"`,
+    `curl -sI "${safeUrl}"`,
     { timeout: 15000 }
   );
 
@@ -146,7 +150,7 @@ export async function downloadDirectUrl(url: string): Promise<{ filePath: string
   else if (contentType.includes("quicktime")) ext = ".mov";
 
   const finalVideoPath = path.join(UPLOADS_DIR, `${id}${ext}`);
-  await run(`curl -L -o "${finalVideoPath}" "${url}"`, 300000);
+  await run(`curl -L -o "${finalVideoPath}" "${safeUrl}"`, 300000);
 
   try {
     await run(
@@ -159,7 +163,7 @@ export async function downloadDirectUrl(url: string): Promise<{ filePath: string
 
   const thumbnail = await generateThumbnail(finalVideoPath, id);
 
-  const urlParts = url.split("/");
+  const urlParts = safeUrl.split("/");
   const title = decodeURIComponent(urlParts[urlParts.length - 1].split("?")[0]) || "Downloaded Video";
 
   return { filePath: finalVideoPath, audioPath, title, thumbnail };

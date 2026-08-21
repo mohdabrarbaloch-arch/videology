@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface QuizQuestion {
   question: string;
@@ -24,31 +24,70 @@ export default function QuizInterface({ videoId, quizId, title, questionsJson }:
       return [];
     }
   });
+
+  const storageKey = `quiz-progress-${quizId}`;
+
   const [currentQ, setCurrentQ] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [answered, setAnswered] = useState(false);
   const [score, setScore] = useState(0);
   const [finished, setFinished] = useState(false);
+  const [answersMap, setAnswersMap] = useState<Record<number, number>>({});
+
+  useEffect(() => {
+    if (questions.length === 0) return;
+    try {
+      const raw = localStorage.getItem(storageKey);
+      if (!raw) return;
+      const saved = JSON.parse(raw);
+      if (saved.totalQuestions !== questions.length) return;
+      setCurrentQ(saved.currentQ ?? 0);
+      setScore(saved.score ?? 0);
+      setAnswersMap(saved.answersMap ?? {});
+    } catch {
+      // ignore corrupt data
+    }
+  }, [storageKey, questions.length]);
 
   const q = questions[currentQ];
+
+  function persistProgress(updatedCurrentQ: number, updatedScore: number, updatedAnswersMap: Record<number, number>) {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify({
+        currentQ: updatedCurrentQ,
+        score: updatedScore,
+        totalQuestions: questions.length,
+        answersMap: updatedAnswersMap,
+      }));
+    } catch {
+      // ignore storage errors
+    }
+  }
 
   function handleSelect(index: number) {
     if (answered) return;
     setSelected(index);
     setAnswered(true);
+    const newScore = index === q.correctIndex ? score + 1 : score;
     if (index === q.correctIndex) {
       setScore((s) => s + 1);
     }
+    const newAnswersMap = { ...answersMap, [currentQ]: index };
+    setAnswersMap(newAnswersMap);
+    persistProgress(currentQ, newScore, newAnswersMap);
   }
 
   async function handleNext() {
     if (currentQ < questions.length - 1) {
-      setCurrentQ((c) => c + 1);
+      const nextQ = currentQ + 1;
+      setCurrentQ(nextQ);
       setSelected(null);
       setAnswered(false);
+      persistProgress(nextQ, score, answersMap);
     } else {
       setFinished(true);
       try {
+        localStorage.removeItem(storageKey);
         await fetch(`/api/videos/${videoId}/quiz`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

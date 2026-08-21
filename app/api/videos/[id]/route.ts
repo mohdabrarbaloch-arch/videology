@@ -92,3 +92,37 @@ export async function DELETE(
 
   return NextResponse.json({ success: true });
 }
+
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const session = await getSession();
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const { id } = await params;
+
+  const video = await db.video.findFirst({
+    where: { id, userId: session.userId },
+  });
+
+  if (!video) {
+    return NextResponse.json({ error: "Video not found" }, { status: 404 });
+  }
+
+  const body = await request.json();
+  const { title } = body;
+
+  if (typeof title !== "string") {
+    return NextResponse.json({ error: "Title must be a string" }, { status: 400 });
+  }
+
+  const updated = await db.video.update({
+    where: { id },
+    data: { title },
+  });
+
+  return NextResponse.json({ video: updated });
+}

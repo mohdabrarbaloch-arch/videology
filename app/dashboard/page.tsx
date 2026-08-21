@@ -28,6 +28,7 @@ export default function DashboardPage() {
   const [user, setUser] = useState<User | null>(null);
   const [videos, setVideos] = useState<Video[]>([]);
   const [loading, setLoading] = useState(true);
+  const [mobileMenu, setMobileMenu] = useState(false);
 
   const fetchVideos = useCallback(async () => {
     try {
@@ -86,6 +87,50 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-(--bg) text-(--fg)">
+      {/* Mobile overlay */}
+      {mobileMenu && (
+        <div className="fixed inset-0 z-40 lg:hidden">
+          <div className="absolute inset-0 bg-black/50" onClick={() => setMobileMenu(false)} />
+          <aside className="absolute inset-y-0 left-0 z-50 flex w-64 flex-col border-r border-(--border) bg-(--bg-2)">
+            <div className="flex h-20 items-center justify-between border-b border-(--border) px-6">
+              <Link href="/" className="flex items-center gap-3" onClick={() => setMobileMenu(false)}>
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-(--border-2) bg-(--surface-2) text-sm font-bold">V</div>
+                <div>
+                  <div className="font-semibold tracking-tight">Videology</div>
+                  <div className="text-[9px] uppercase tracking-[0.2em] text-(--fg)/35">AI Video Intelligence</div>
+                </div>
+              </Link>
+              <button onClick={() => setMobileMenu(false)} className="text-lg text-(--fg)/40">&times;</button>
+            </div>
+            <nav className="flex-1 px-3 py-6">
+              <p className="px-3 pb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-(--fg)/25">Workspace</p>
+              <div className="space-y-1">
+                <Link href="/dashboard" onClick={() => setMobileMenu(false)} className="flex items-center gap-3 rounded-xl bg-(--surface-3) px-3 py-2.5 text-sm text-(--fg) transition">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-lg border border-(--border) text-xs">⌂</span>Overview
+                </Link>
+                <Link href="/tools" onClick={() => setMobileMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-(--fg)/50 transition hover:bg-(--surface-2) hover:text-(--fg)">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-lg border border-(--border) text-xs">◧</span>Free Tools
+                </Link>
+                <Link href="/clips" onClick={() => setMobileMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-(--fg)/50 transition hover:bg-(--surface-2) hover:text-(--fg)">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-lg border border-(--border) text-xs">✂</span>Clip Studio
+                </Link>
+              </div>
+            </nav>
+            <div className="border-t border-(--border) p-4">
+              {user && (
+                <div className="mb-3 px-3">
+                  <p className="text-xs font-medium text-(--fg)/60">{user.name}</p>
+                  <p className="text-[10px] text-(--fg)/30">{user.email}</p>
+                </div>
+              )}
+              <button onClick={() => { setMobileMenu(false); handleLogout(); }} className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-(--fg)/40 transition hover:bg-(--surface-2) hover:text-(--fg)">
+                <span>←</span>Sign out
+              </button>
+            </div>
+          </aside>
+        </div>
+      )}
+
       <div className="flex min-h-screen">
         {/* Sidebar */}
         <aside className="hidden w-64 shrink-0 border-r border-(--border) bg-(--bg-2) lg:flex lg:flex-col">
@@ -149,9 +194,14 @@ export default function DashboardPage() {
         {/* Main */}
         <main className="min-w-0 flex-1">
           <header className="flex h-20 items-center justify-between border-b border-(--border) px-5 sm:px-8">
-            <div>
-              <p className="text-xs text-(--fg)/35">Workspace</p>
-              <h1 className="mt-0.5 text-lg font-semibold">Dashboard</h1>
+            <div className="flex items-center gap-3">
+              <button onClick={() => setMobileMenu(true)} className="flex h-9 w-9 items-center justify-center rounded-xl border border-(--border-2) bg-(--surface-2) text-sm lg:hidden">
+                ☰
+              </button>
+              <div>
+                <p className="text-xs text-(--fg)/35">Workspace</p>
+                <h1 className="mt-0.5 text-lg font-semibold">Dashboard</h1>
+              </div>
             </div>
 
             <div className="flex items-center gap-3">
@@ -243,10 +293,25 @@ export default function DashboardPage() {
               </section>
             )}
 
-            {/* Empty state */}
+            {/* Loading skeletons */}
             {loading && (
-              <section className="mt-8 rounded-3xl border border-dashed border-(--border-2) bg-(--surface-0) px-6 py-14 text-center">
-                <p className="text-sm text-(--fg)/35">Loading videos...</p>
+              <section className="mt-8">
+                <div className="mb-4 h-5 w-32 animate-pulse rounded-lg bg-(--surface-2)" />
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {[1, 2, 3].map((i) => (
+                    <div key={i} className="overflow-hidden rounded-2xl border border-(--border) bg-(--surface-1)">
+                      <div className="aspect-video animate-pulse bg-(--surface-2)" />
+                      <div className="p-5 space-y-3">
+                        <div className="h-4 w-3/4 animate-pulse rounded bg-(--surface-2)" />
+                        <div className="h-3 w-1/2 animate-pulse rounded bg-(--surface-2)" />
+                        <div className="flex gap-2 pt-2">
+                          <div className="h-6 w-16 animate-pulse rounded-md bg-(--surface-2)" />
+                          <div className="h-6 w-16 animate-pulse rounded-md bg-(--surface-2)" />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </section>
             )}
 

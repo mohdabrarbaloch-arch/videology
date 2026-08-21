@@ -1,3 +1,5 @@
+import { isOpenRouterKey } from "./shell";
+
 export interface VideoAnalysis {
   summary: string;
   keyPoints: string[];
@@ -29,10 +31,6 @@ const THUMB_CONCEPTS = [
   { emoji: "📈", title: "Proven Results", subtitle: "Step by step", description: "Emphasize a method, framework, or exact steps the video teaches." },
   { emoji: "🏆", title: "The Shortcut", subtitle: "Do it right", description: "Position the content as the faster, smarter way to achieve the goal." },
 ] as const;
-
-function isOpenRouterKey(key: string): boolean {
-  return key.startsWith("sk-or-v1-");
-}
 
 function getBaseUrl(): string {
   return isOpenRouterKey(process.env.OPENAI_API_KEY || "")

@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import type { TranscriptSegment } from "./transcriber";
 import { CLIPS_DIR as PATHS_CLIPS_DIR, WORK_DIR as PATHS_WORK_DIR } from "./paths";
 import { FFMPEG, FFMPEG_DIR, YT_DLP, YT_SPEED } from "./binaries";
+import { sanitizeUrl, isOpenRouterKey } from "./shell";
 
 const execAsync = promisify(exec);
 
@@ -119,10 +120,11 @@ async function getDuration(videoPath: string): Promise<number> {
 
 export async function downloadVideoFromUrl(url: string): Promise<string> {
   ensureDirs();
+  const safeUrl = sanitizeUrl(url);
   const id = uuidv4();
   const out = path.join(WORK_DIR, `${id}.mp4`);
   await run(
-    `${YT_DLP} ${YT_SPEED} ${FFMPEG_DIR} -f "best[height<=720]/bestvideo[height<=720]+bestaudio/best[height<=720]" --merge-output-format mp4 -o "${out}" "${url}"`,
+    `${YT_DLP} ${YT_SPEED} ${FFMPEG_DIR} -f "best[height<=720]/bestvideo[height<=720]+bestaudio/best[height<=720]" --merge-output-format mp4 -o "${out}" "${safeUrl}"`,
     600000
   );
   if (!fs.existsSync(out)) throw new Error("Video download failed.");
@@ -241,10 +243,10 @@ async function pickWithAI(
   const timeout = setTimeout(() => controller.abort(), 60000);
 
   try {
-    const baseUrl = apiKey.startsWith("sk-or-v1-")
+    const baseUrl = isOpenRouterKey(apiKey)
       ? "https://openrouter.ai/api/v1"
       : "https://api.openai.com/v1";
-    const model = apiKey.startsWith("sk-or-v1-") ? "openai/gpt-4o-mini" : "gpt-4o-mini";
+    const model = isOpenRouterKey(apiKey) ? "openai/gpt-4o-mini" : "gpt-4o-mini";
 
     const response = await fetch(`${baseUrl}/chat/completions`, {
       method: "POST",

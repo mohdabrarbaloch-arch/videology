@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export function proxy(request: NextRequest) {
+export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const token = request.cookies.get("token")?.value;
 
@@ -15,6 +15,8 @@ export function proxy(request: NextRequest) {
   const isPublic =
     publicPaths.includes(pathname) ||
     pathname.startsWith("/_next") ||
+    pathname.startsWith("/thumbnails") ||
+    pathname.startsWith("/clips") ||
     pathname.includes(".");
 
   if (isPublic) {

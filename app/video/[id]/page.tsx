@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -42,6 +42,9 @@ export default function VideoDetailPage() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<Tab>("overview");
   const [processingStep, setProcessingStep] = useState("");
+  const [editingTitle, setEditingTitle] = useState(false);
+  const [titleValue, setTitleValue] = useState("");
+  const [savingTitle, setSavingTitle] = useState(false);
 
   const fetchVideo = useCallback(async () => {
     try {
@@ -105,6 +108,30 @@ export default function VideoDetailPage() {
       }
     } catch {
       setProcessingStep("Analysis failed. Please try again.");
+    }
+  }
+
+  async function saveTitle() {
+    const trimmed = titleValue.trim();
+    if (!trimmed || trimmed === (video?.title || "")) {
+      setEditingTitle(false);
+      return;
+    }
+    setSavingTitle(true);
+    try {
+      const res = await fetch(`/api/videos/${videoId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title: trimmed }),
+      });
+      if (res.ok) {
+        setVideo((prev) => (prev ? { ...prev, title: trimmed } : prev));
+      }
+    } catch {
+      console.error("Failed to save title");
+    } finally {
+      setSavingTitle(false);
+      setEditingTitle(false);
     }
   }
 
@@ -202,9 +229,41 @@ export default function VideoDetailPage() {
       <div className="mx-auto max-w-7xl px-5 py-8 sm:px-8">
         {/* Video title */}
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-            {video.title || "Untitled Video"}
-          </h1>
+          {editingTitle ? (
+            <div className="flex items-center gap-3">
+              <input
+                autoFocus
+                value={titleValue}
+                onChange={(e) => setTitleValue(e.target.value)}
+                onBlur={saveTitle}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") saveTitle();
+                  if (e.key === "Escape") setEditingTitle(false);
+                }}
+                className="flex-1 rounded-xl border border-(--border-2) bg-(--surface-2) px-4 py-2 text-2xl font-semibold tracking-tight text-(--fg) outline-none focus:border-(--accent) sm:text-3xl"
+                disabled={savingTitle}
+              />
+              {savingTitle && (
+                <div className="h-5 w-5 animate-spin rounded-full border-2 border-(--accent) border-t-transparent" />
+              )}
+            </div>
+          ) : (
+            <div className="flex items-center gap-3">
+              <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+                {video.title || "Untitled Video"}
+              </h1>
+              <button
+                onClick={() => {
+                  setTitleValue(video.title || "");
+                  setEditingTitle(true);
+                }}
+                className="rounded-lg px-2 py-1 text-xs text-(--fg)/25 transition hover:bg-(--surface-2) hover:text-(--fg)/50"
+                title="Edit title"
+              >
+                ✎
+              </button>
+            </div>
+          )}
           <p className="mt-2 text-sm text-(--fg)/35">
             {video.source} · {new Date(video.createdAt).toLocaleDateString()}
             {video.duration ? ` · ${formatDuration(video.duration)}` : ""}

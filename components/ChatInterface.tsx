@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, type ReactNode } from "react";
 
 interface Message {
   id: string;
@@ -11,6 +11,69 @@ interface Message {
 interface ChatInterfaceProps {
   videoId: string;
   initialMessages: Message[];
+}
+
+function renderMarkdown(text: string): ReactNode[] {
+  const parts: ReactNode[] = [];
+  const lines = text.split("\n");
+  let inCodeBlock = false;
+  let codeLines: string[] = [];
+  let codeKey = 0;
+
+  for (const line of lines) {
+    if (line.startsWith("```")) {
+      if (inCodeBlock) {
+        parts.push(
+          <pre key={`code-${codeKey++}`} className="my-2 overflow-x-auto rounded-lg bg-black/20 px-3 py-2 text-xs">
+            <code>{codeLines.join("\n")}</code>
+          </pre>
+        );
+        codeLines = [];
+        inCodeBlock = false;
+      } else {
+        inCodeBlock = true;
+      }
+      continue;
+    }
+    if (inCodeBlock) {
+      codeLines.push(line);
+      continue;
+    }
+    parts.push(<p key={`p-${codeKey++}`} className="my-1">{renderInline(line)}</p>);
+  }
+  return parts;
+}
+
+function renderInline(text: string): ReactNode[] {
+  const parts: ReactNode[] = [];
+  const regex = /(\*\*(.+?)\*\*|__(.+?)__|\*(.+?)\*|_(.+?)_|`(.+?)`|\[([^\]]+)\]\(([^)]+)\))/g;
+  let lastIndex = 0;
+  let match;
+  let key = 0;
+
+  while ((match = regex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(text.slice(lastIndex, match.index));
+    }
+    if (match[2] || match[3]) {
+      parts.push(<strong key={key++}>{match[2] || match[3]}</strong>);
+    } else if (match[4] || match[5]) {
+      parts.push(<em key={key++}>{match[4] || match[5]}</em>);
+    } else if (match[6]) {
+      parts.push(
+        <code key={key++} className="rounded bg-black/20 px-1.5 py-0.5 text-xs">{match[6]}</code>
+      );
+    } else if (match[7] && match[8]) {
+      parts.push(
+        <a key={key++} href={match[8]} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">{match[7]}</a>
+      );
+    }
+    lastIndex = match.index + match[0].length;
+  }
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex));
+  }
+  return parts;
 }
 
 export default function ChatInterface({ videoId, initialMessages }: ChatInterfaceProps) {
@@ -87,7 +150,7 @@ export default function ChatInterface({ videoId, initialMessages }: ChatInterfac
                   : "bg-(--surface-3) text-(--fg)/80"
               }`}
             >
-              {msg.content}
+              {msg.role === "assistant" ? renderMarkdown(msg.content) : msg.content}
             </div>
           </div>
         ))}

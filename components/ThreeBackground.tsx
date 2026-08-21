@@ -23,6 +23,18 @@ export default function ThreeBackground() {
     let mouseHandler: ((e: PointerEvent) => void) | null = null;
 
     async function init() {
+      const lowCores = (navigator.hardwareConcurrency ?? 4) <= 2;
+      const lowMemory = (navigator.deviceMemory ?? 4) <= 2;
+      const reducedMotion =
+        typeof window.matchMedia === "function" &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const smallScreen = window.innerWidth < 600;
+
+      if (lowCores || lowMemory || reducedMotion || smallScreen) {
+        mounted = false;
+        return;
+      }
+
       const THREE = await import("three");
       if (!mounted || !canvas) return;
 

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Clip Studio",
+  title: "Analyze Video",
   description:
-    "Create viral short-form clips from any video with AI-powered selection and karaoke captions.",
+    "Upload or paste a URL to analyze a video with AI transcription, analysis, and learning tools.",
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
