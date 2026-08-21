@@ -43,7 +43,7 @@ export default function TranscriptViewer({ text, segments: segmentsJson }: Trans
         <button
           onClick={() => setView("full")}
           className={`rounded-lg px-3 py-1.5 text-xs font-medium transition ${
-            view === "full" ? "bg-(--btn) text-(--btn-fg)" : "text-(--fg)/40 hover:text-(--fg)"
+            view === "full" ? "bg-(--btn) text-(--btn-fg)" : "text-(--fg)/60 hover:text-(--fg)"
           }`}
         >
           Full Text
@@ -51,7 +51,7 @@ export default function TranscriptViewer({ text, segments: segmentsJson }: Trans
         <button
           onClick={() => setView("segments")}
           className={`rounded-lg px-3 py-1.5 text-xs font-medium transition ${
-            view === "segments" ? "bg-(--btn) text-(--btn-fg)" : "text-(--fg)/40 hover:text-(--fg)"
+            view === "segments" ? "bg-(--btn) text-(--btn-fg)" : "text-(--fg)/60 hover:text-(--fg)"
           }`}
         >
           Timestamped
@@ -64,10 +64,10 @@ export default function TranscriptViewer({ text, segments: segmentsJson }: Trans
           placeholder="Search transcript…"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full rounded-xl border border-(--border-2) bg-(--input-bg) px-4 py-2.5 text-sm text-(--fg) placeholder:text-(--fg)/30 focus:outline-none focus:ring-1 focus:ring-(--accent)"
+          className="w-full rounded-xl border border-(--border-2) bg-(--input-bg) px-4 py-2.5 text-sm text-(--fg) placeholder:text-(--fg)/55 focus:outline-none focus:ring-1 focus:ring-(--accent)"
         />
         {query && (
-          <span className="shrink-0 text-xs text-(--fg)/40">
+          <span className="shrink-0 text-xs text-(--fg)/60">
             {filteredSegments.length} of {segments.length} segments
           </span>
         )}
@@ -93,9 +93,9 @@ export default function TranscriptViewer({ text, segments: segmentsJson }: Trans
               </div>
             ))
           ) : query ? (
-            <p className="text-sm text-(--fg)/40">No segments match your search.</p>
+            <p className="text-sm text-(--fg)/60">No segments match your search.</p>
           ) : (
-            <p className="text-sm text-(--fg)/40">No timestamped segments available.</p>
+            <p className="text-sm text-(--fg)/60">No timestamped segments available.</p>
           )}
         </div>
       )}

@@ -16,7 +16,7 @@ interface VideoCardProps {
 }
 
 const statusColors: Record<string, string> = {
-  uploaded: "bg-(--btn)/10 text-(--fg)/50",
+  uploaded: "bg-(--btn)/10 text-(--fg)/65",
   transcribing: "bg-yellow-500/10 text-yellow-400",
   transcribed: "bg-blue-500/10 text-blue-400",
   analyzing: "bg-purple-500/10 text-purple-400",
@@ -58,7 +58,7 @@ export default function VideoCard({ id, title, source, status, createdAt, thumbn
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <h3 className="truncate text-sm font-semibold text-(--fg)">{title || "Untitled"}</h3>
-            <p className="mt-0.5 text-xs text-(--fg)/35">{date}</p>
+            <p className="mt-0.5 text-xs text-(--fg)/55">{date}</p>
           </div>
 
           <span className={`shrink-0 rounded-lg px-2.5 py-1 text-[10px] font-medium ${statusColors[status] || statusColors.uploaded}`}>
@@ -89,7 +89,7 @@ export default function VideoCard({ id, title, source, status, createdAt, thumbn
           {onDelete && (
             <button
               onClick={() => onDelete(id)}
-              className="rounded-xl border border-(--border-2) bg-(--surface-2) px-3 py-2.5 text-xs font-medium text-(--fg)/40 transition hover:border-red-400/30 hover:bg-red-400/10 hover:text-red-400"
+              className="rounded-xl border border-(--border-2) bg-(--surface-2) px-3 py-2.5 text-xs font-medium text-(--fg)/60 transition hover:border-red-400/30 hover:bg-red-400/10 hover:text-red-400"
             >
               ✕
             </button>

@@ -22,7 +22,7 @@ export default function GlobalError({
           !
         </div>
         <h1 className="mt-6 text-2xl font-semibold text-(--fg)">Something went wrong</h1>
-        <p className="mt-3 text-sm leading-6 text-(--fg)/45">
+        <p className="mt-3 text-sm leading-6 text-(--fg)/60">
           An unexpected error occurred. Please try again.
         </p>
         <button

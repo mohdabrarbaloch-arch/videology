@@ -236,12 +236,12 @@ export default function ClipsPage() {
             </div>
             <div>
               <div className="font-semibold tracking-tight">Videology</div>
-              <div className="text-[9px] uppercase tracking-[0.2em] text-(--fg)/35">Clip Studio</div>
+              <div className="text-[9px] uppercase tracking-[0.2em] text-(--fg)/55">Clip Studio</div>
             </div>
           </Link>
 
           <div className="flex items-center gap-4">
-            <Link href="/dashboard" className="text-sm text-(--fg)/40 transition hover:text-(--fg)">
+            <Link href="/dashboard" className="text-sm text-(--fg)/60 transition hover:text-(--fg)">
               ← Dashboard
             </Link>
             <ThemeDropdown />
@@ -253,7 +253,7 @@ export default function ClipsPage() {
         <div className="pointer-events-none absolute left-1/2 top-0 -z-10 h-96 w-[600px] -translate-x-1/2 rounded-full bg-(--accent)/10 blur-[130px]" />
 
         <div className="mx-auto max-w-2xl text-center">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-(--border-2) bg-(--surface-2) px-3 py-1.5 text-[11px] text-(--fg)/50">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-(--border-2) bg-(--surface-2) px-3 py-1.5 text-[11px] text-(--fg)/65">
             <span className="h-1.5 w-1.5 rounded-full bg-(--accent-2)" />
             Auto-clip · Captions · Shorts-ready
           </div>
@@ -262,7 +262,7 @@ export default function ClipsPage() {
             Turn videos into viral shorts
           </h1>
 
-          <p className="mt-4 text-sm leading-6 text-(--fg)/40 sm:text-base">
+          <p className="mt-4 text-sm leading-6 text-(--fg)/60 sm:text-base">
             Paste a YouTube link or upload a video. We&apos;ll find the best moments and
             add karaoke-style captions automatically.
           </p>
@@ -283,7 +283,7 @@ export default function ClipsPage() {
                   setError("");
                 }}
                 className={`rounded-xl px-3 py-3 text-sm font-medium transition ${
-                  mode === value ? "bg-(--btn) text-(--btn-fg)" : "text-(--fg)/40 hover:text-(--fg)"
+                  mode === value ? "bg-(--btn) text-(--btn-fg)" : "text-(--fg)/60 hover:text-(--fg)"
                 }`}
               >
                 {label}
@@ -304,10 +304,10 @@ export default function ClipsPage() {
                   value={url}
                   onChange={(event) => { setUrl(event.target.value); setError(""); }}
                   placeholder="https://www.youtube.com/watch?v=..."
-                  className="min-w-0 flex-1 rounded-xl border border-(--border-2) bg-(--input-bg) px-4 py-3.5 text-sm text-(--fg) outline-none placeholder:text-(--fg)/20 transition focus:border-(--accent)/60 focus:ring-2 focus:ring-(--accent)/10"
+                  className="min-w-0 flex-1 rounded-xl border border-(--border-2) bg-(--input-bg) px-4 py-3.5 text-sm text-(--fg) outline-none placeholder:text-(--fg)/35 transition focus:border-(--accent)/60 focus:ring-2 focus:ring-(--accent)/10"
                 />
               </div>
-              <p className="mt-3 text-xs text-(--fg)/25">Public YouTube videos are supported.</p>
+              <p className="mt-3 text-xs text-(--fg)/65">Public YouTube videos are supported.</p>
             </div>
           )}
 
@@ -340,18 +340,18 @@ export default function ClipsPage() {
                 {file ? (
                   <>
                     <h2 className="mt-5 text-sm font-semibold text-(--fg)">{file.name}</h2>
-                    <p className="mt-2 text-xs text-(--fg)/35">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                    <p className="mt-2 text-xs text-(--fg)/55">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
                     <span className="mt-5 text-xs text-(--accent-3)">Choose another file</span>
                   </>
                 ) : (
                   <>
                     <h2 className="mt-5 text-sm font-semibold">Drop your video here</h2>
-                    <p className="mt-2 text-xs text-(--fg)/35">or click to browse from your computer</p>
-                    <span className="mt-5 rounded-lg border border-(--border-2) px-3 py-2 text-xs text-(--fg)/50">Select video</span>
+                    <p className="mt-2 text-xs text-(--fg)/55">or click to browse from your computer</p>
+                    <span className="mt-5 rounded-lg border border-(--border-2) px-3 py-2 text-xs text-(--fg)/65">Select video</span>
                   </>
                 )}
               </label>
-              <p className="mt-3 text-xs text-(--fg)/25">MP4, WebM, MOV, MKV · Maximum 500 MB</p>
+              <p className="mt-3 text-xs text-(--fg)/65">MP4, WebM, MOV, MKV · Maximum 500 MB</p>
             </div>
           )}
 
@@ -429,7 +429,7 @@ export default function ClipsPage() {
                     {s.example.b}
                   </div>
                   <div className="text-xs font-semibold text-(--fg)">{s.name}</div>
-                  <div className="mt-1 text-[11px] text-(--fg)/35">{s.desc}</div>
+                  <div className="mt-1 text-[11px] text-(--fg)/55">{s.desc}</div>
                 </button>
               ))}
             </div>
@@ -491,7 +491,7 @@ export default function ClipsPage() {
               <button
                 type="button"
                 onClick={() => { setClips(null); setProcessing(false); }}
-                className="text-sm text-(--fg)/40 transition hover:text-(--fg)"
+                className="text-sm text-(--fg)/60 transition hover:text-(--fg)"
               >
                 Start over
               </button>
@@ -519,7 +519,7 @@ export default function ClipsPage() {
 
                   <div className="p-4">
                     <h3 className="line-clamp-2 text-sm font-semibold leading-snug">{clip.title}</h3>
-                    <p className="mt-1 text-[11px] text-(--fg)/35">AI thumbnail: {clip.aiTitle}</p>
+                    <p className="mt-1 text-[11px] text-(--fg)/55">AI thumbnail: {clip.aiTitle}</p>
 
                     <div className="mt-4 grid grid-cols-2 gap-2">
                       <a
@@ -542,7 +542,7 @@ export default function ClipsPage() {
               ))}
             </div>
 
-            <p className="mt-8 text-center text-xs text-(--fg)/25">
+            <p className="mt-8 text-center text-xs text-(--fg)/65">
               Caption style {stylePreview.name} · {aspect} · ~{duration}s
             </p>
           </div>

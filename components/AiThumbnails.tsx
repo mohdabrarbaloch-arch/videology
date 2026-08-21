@@ -55,7 +55,7 @@ export default function AiThumbnails({ videoId, hasTranscript }: Props) {
           <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-(--accent-2)">
             AI Thumbnails
           </h3>
-          <p className="mt-1 text-sm text-(--fg)/40">
+          <p className="mt-1 text-sm text-(--fg)/60">
             Thumbnail concepts built from the video&apos;s strongest ideas.
           </p>
         </div>
@@ -84,7 +84,7 @@ export default function AiThumbnails({ videoId, hasTranscript }: Props) {
                   <p className="mt-0.5 text-[11px] text-white/70">{c.subtitle}</p>
                 </div>
               </div>
-              <p className="px-3 py-3 text-xs leading-5 text-(--fg)/45">{c.description}</p>
+              <p className="px-3 py-3 text-xs leading-5 text-(--fg)/60">{c.description}</p>
             </div>
           ))}
         </div>
@@ -92,7 +92,7 @@ export default function AiThumbnails({ videoId, hasTranscript }: Props) {
 
       {!loading && !concepts && (
         <div className="mt-5 rounded-xl border border-dashed border-(--border-2) bg-(--surface-0) p-6 text-center">
-          <p className="text-sm text-(--fg)/35">
+          <p className="text-sm text-(--fg)/55">
             {hasTranscript
               ? "Generate a few thumbnail directions you can reuse for YouTube, TikTok, or any platform."
               : "Transcribe the video first to generate thumbnail concepts."}

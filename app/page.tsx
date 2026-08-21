@@ -54,7 +54,7 @@ export default function Home() {
             <div className="text-lg font-semibold tracking-tight text-(--fg)">
               Videology
             </div>
-            <div className="text-[10px] uppercase tracking-[0.22em] text-(--fg)/40">
+            <div className="text-[10px] uppercase tracking-[0.22em] text-(--fg)/60">
               Watch · Analyze · Learn
             </div>
           </div>
@@ -116,7 +116,7 @@ export default function Home() {
             </span>
           </h1>
 
-          <p className="mx-auto mt-7 max-w-2xl text-base leading-7 text-(--fg)/50 sm:text-lg">
+          <p className="mx-auto mt-7 max-w-2xl text-base leading-7 text-(--fg)/65 sm:text-lg">
             Videology transforms videos into searchable knowledge with AI
             transcription, analysis, translation, intelligent Q&A, quizzes,
             learning insights, and generated thumbnails.
@@ -148,7 +148,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-x-7 gap-y-3 text-xs text-(--fg)/35">
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-x-7 gap-y-3 text-xs text-(--fg)/55">
             <span>● YouTube URLs</span>
             <span>● Direct video URLs</span>
             <span>● Video uploads</span>
@@ -172,7 +172,7 @@ export default function Home() {
               Everything you need to understand and learn from video.
             </h2>
 
-            <p className="mt-4 leading-7 text-(--fg)/45">
+            <p className="mt-4 leading-7 text-(--fg)/60">
               A single workspace for turning long-form video content into
               structured, useful knowledge.
             </p>
@@ -185,7 +185,7 @@ export default function Home() {
                 className="group bg-(--bg-3) p-7 transition hover:bg-(--surface-hover)"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-medium tracking-widest text-(--fg)/25">
+                  <span className="text-xs font-medium tracking-widest text-(--fg)/65">
                     {feature.icon}
                   </span>
 
@@ -196,7 +196,7 @@ export default function Home() {
                   {feature.title}
                 </h3>
 
-                <p className="mt-3 text-sm leading-6 text-(--fg)/40">
+                <p className="mt-3 text-sm leading-6 text-(--fg)/60">
                   {feature.description}
                 </p>
               </article>
@@ -232,7 +232,7 @@ export default function Home() {
 
                 <h3 className="mt-4 font-semibold text-(--fg)">{title}</h3>
 
-                <p className="mt-2 text-sm leading-6 text-(--fg)/40">
+                <p className="mt-2 text-sm leading-6 text-(--fg)/60">
                   {description}
                 </p>
               </div>
@@ -243,7 +243,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="border-t border-(--border)">
-        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-8 text-sm text-(--fg)/35 sm:flex-row sm:items-center sm:justify-between lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-8 text-sm text-(--fg)/55 sm:flex-row sm:items-center sm:justify-between lg:px-8">
           <span>© {new Date().getFullYear()} Videology</span>
           <span>Created by Abrar Baloch</span>
         </div>

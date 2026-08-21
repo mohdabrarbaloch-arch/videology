@@ -188,12 +188,12 @@ export default function AnalyzePage() {
             </div>
             <div>
               <div className="font-semibold tracking-tight">Videology</div>
-              <div className="text-[9px] uppercase tracking-[0.2em] text-(--fg)/35">Analyze</div>
+              <div className="text-[9px] uppercase tracking-[0.2em] text-(--fg)/55">Analyze</div>
             </div>
           </Link>
 
           <div className="flex items-center gap-4">
-            <Link href="/dashboard" className="text-sm text-(--fg)/40 transition hover:text-(--fg)">
+            <Link href="/dashboard" className="text-sm text-(--fg)/60 transition hover:text-(--fg)">
               ← Dashboard
             </Link>
             <ThemeDropdown />
@@ -205,7 +205,7 @@ export default function AnalyzePage() {
         <div className="pointer-events-none absolute left-1/2 top-0 -z-10 h-96 w-[600px] -translate-x-1/2 rounded-full bg-(--accent)/10 blur-[130px]" />
 
         <div className="mx-auto max-w-2xl text-center">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-(--border-2) bg-(--surface-2) px-3 py-1.5 text-[11px] text-(--fg)/50">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-(--border-2) bg-(--surface-2) px-3 py-1.5 text-[11px] text-(--fg)/65">
             <span className="h-1.5 w-1.5 rounded-full bg-(--accent-2)" />
             New video analysis
           </div>
@@ -214,7 +214,7 @@ export default function AnalyzePage() {
             What should we analyze?
           </h1>
 
-          <p className="mt-4 text-sm leading-6 text-(--fg)/40 sm:text-base">
+          <p className="mt-4 text-sm leading-6 text-(--fg)/60 sm:text-base">
             Give Videology a video and we&apos;ll turn its content into searchable, understandable knowledge.
           </p>
         </div>
@@ -235,7 +235,7 @@ export default function AnalyzePage() {
                   setError("");
                 }}
                 className={`rounded-xl px-3 py-3 text-sm font-medium transition ${
-                  mode === value ? "bg-(--btn) text-(--btn-fg)" : "text-(--fg)/40 hover:text-(--fg)"
+                  mode === value ? "bg-(--btn) text-(--btn-fg)" : "text-(--fg)/60 hover:text-(--fg)"
                 }`}
               >
                 {label}
@@ -261,7 +261,7 @@ export default function AnalyzePage() {
                       ? "https://www.youtube.com/watch?v=..."
                       : "https://example.com/video.mp4"
                   }
-                  className="min-w-0 flex-1 rounded-xl border border-(--border-2) bg-(--input-bg) px-4 py-3.5 text-sm text-(--fg) outline-none placeholder:text-(--fg)/20 transition focus:border-(--accent)/60 focus:ring-2 focus:ring-(--accent)/10"
+                  className="min-w-0 flex-1 rounded-xl border border-(--border-2) bg-(--input-bg) px-4 py-3.5 text-sm text-(--fg) outline-none placeholder:text-(--fg)/35 transition focus:border-(--accent)/60 focus:ring-2 focus:ring-(--accent)/10"
                 />
 
                 <button
@@ -274,7 +274,7 @@ export default function AnalyzePage() {
                 </button>
               </div>
 
-              <p className="mt-3 text-xs text-(--fg)/25">
+              <p className="mt-3 text-xs text-(--fg)/65">
                 {mode === "youtube"
                   ? "Public YouTube videos are supported."
                   : "Use a publicly accessible direct video URL."}
@@ -311,20 +311,20 @@ export default function AnalyzePage() {
                 {file ? (
                   <>
                     <h2 className="mt-5 text-sm font-semibold text-(--fg)">{file.name}</h2>
-                    <p className="mt-2 text-xs text-(--fg)/35">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                    <p className="mt-2 text-xs text-(--fg)/55">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
                     <span className="mt-5 text-xs text-(--accent-3)">Choose another file</span>
                   </>
                 ) : (
                   <>
                     <h2 className="mt-5 text-sm font-semibold">Drop your video here</h2>
-                    <p className="mt-2 text-xs text-(--fg)/35">or click to browse from your computer</p>
-                    <span className="mt-5 rounded-lg border border-(--border-2) px-3 py-2 text-xs text-(--fg)/50">Select video</span>
+                    <p className="mt-2 text-xs text-(--fg)/55">or click to browse from your computer</p>
+                    <span className="mt-5 rounded-lg border border-(--border-2) px-3 py-2 text-xs text-(--fg)/65">Select video</span>
                   </>
                 )}
               </label>
 
               <div className="mt-5 flex items-center justify-between gap-4">
-                <p className="text-xs text-(--fg)/25">MP4, WebM, MOV, MKV · Maximum 500 MB</p>
+                <p className="text-xs text-(--fg)/65">MP4, WebM, MOV, MKV · Maximum 500 MB</p>
 
                 <button
                   type="button"
@@ -348,7 +348,7 @@ export default function AnalyzePage() {
 
         {/* Processing pipeline */}
         <div className="mx-auto mt-12 max-w-3xl">
-          <p className="text-center text-[10px] font-semibold uppercase tracking-[0.22em] text-(--fg)/25">
+          <p className="text-center text-[10px] font-semibold uppercase tracking-[0.22em] text-(--fg)/65">
             Your analysis pipeline
           </p>
 

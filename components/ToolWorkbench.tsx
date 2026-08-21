@@ -128,10 +128,10 @@ export default function ToolWorkbench({ tool }: Props) {
                 setDone(false);
               }}
               placeholder="https://www.youtube.com/watch?v=..."
-              className="min-w-0 flex-1 rounded-xl border border-(--border-2) bg-(--input-bg) px-4 py-3.5 text-sm text-(--fg) outline-none placeholder:text-(--fg)/20 transition focus:border-(--accent)/60 focus:ring-2 focus:ring-(--accent)/10"
+              className="min-w-0 flex-1 rounded-xl border border-(--border-2) bg-(--input-bg) px-4 py-3.5 text-sm text-(--fg) outline-none placeholder:text-(--fg)/35 transition focus:border-(--accent)/60 focus:ring-2 focus:ring-(--accent)/10"
             />
           </div>
-          <p className="mt-3 text-xs text-(--fg)/25">{tool.hint}</p>
+          <p className="mt-3 text-xs text-(--fg)/65">{tool.hint}</p>
         </div>
       ) : (
         <div>
@@ -164,25 +164,25 @@ export default function ToolWorkbench({ tool }: Props) {
             {file ? (
               <>
                 <h3 className="mt-5 text-sm font-semibold text-(--fg)">{file.name}</h3>
-                <p className="mt-2 text-xs text-(--fg)/35">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                <p className="mt-2 text-xs text-(--fg)/55">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
                 <span className="mt-5 text-xs text-(--accent-3)">Choose another file</span>
               </>
             ) : (
               <>
                 <h3 className="mt-5 text-sm font-semibold">Drop your file here</h3>
-                <p className="mt-2 text-xs text-(--fg)/35">or click to browse from your computer</p>
-                <span className="mt-5 rounded-lg border border-(--border-2) px-3 py-2 text-xs text-(--fg)/50">Select file</span>
+                <p className="mt-2 text-xs text-(--fg)/55">or click to browse from your computer</p>
+                <span className="mt-5 rounded-lg border border-(--border-2) px-3 py-2 text-xs text-(--fg)/65">Select file</span>
               </>
             )}
           </label>
-          <p className="mt-3 text-xs text-(--fg)/25">{tool.hint} · Maximum 500 MB</p>
+          <p className="mt-3 text-xs text-(--fg)/65">{tool.hint} · Maximum 500 MB</p>
         </div>
       )}
 
       {/* Options */}
       {tool.options.length > 0 && (
         <div className="mt-8">
-          <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.22em] text-(--fg)/25">
+          <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.22em] text-(--fg)/65">
             Settings
           </p>
           <div className="grid gap-6 sm:grid-cols-2">
@@ -201,7 +201,7 @@ export default function ToolWorkbench({ tool }: Props) {
           </p>
         )}
         {!done && processing && (
-          <p className="flex items-center gap-2 text-sm text-(--fg)/50">
+          <p className="flex items-center gap-2 text-sm text-(--fg)/65">
             <span className="h-4 w-4 animate-spin rounded-full border-2 border-(--border-3) border-t-(--accent-2)" />
             Processing…
           </p>
@@ -278,7 +278,7 @@ function OptionField({
     <div>
       <label className="mb-2 block text-sm font-medium text-(--fg)/75">
         {option.label}
-        {option.suffix ? <span className="ml-1 text-(--fg)/30">({option.suffix})</span> : null}
+        {option.suffix ? <span className="ml-1 text-(--fg)/55">({option.suffix})</span> : null}
       </label>
       <input
         type="number"

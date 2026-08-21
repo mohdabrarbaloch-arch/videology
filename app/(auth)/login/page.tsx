@@ -51,14 +51,14 @@ export default function LoginPage() {
             </div>
             <div>
               <div className="text-lg font-semibold tracking-tight text-(--fg)">Videology</div>
-              <div className="text-[10px] uppercase tracking-[0.22em] text-(--fg)/40">Watch · Analyze · Learn</div>
+              <div className="text-[10px] uppercase tracking-[0.22em] text-(--fg)/60">Watch · Analyze · Learn</div>
             </div>
           </Link>
         </div>
 
         <div className="rounded-3xl border border-(--border) bg-(--surface-1) p-8">
           <h1 className="text-2xl font-semibold tracking-tight text-(--fg)">Welcome back</h1>
-          <p className="mt-2 text-sm text-(--fg)/40">Sign in to your account</p>
+          <p className="mt-2 text-sm text-(--fg)/60">Sign in to your account</p>
 
           <form onSubmit={handleSubmit} className="mt-8 space-y-5">
             <div>
@@ -69,7 +69,7 @@ export default function LoginPage() {
                 onChange={(e) => { setEmail(e.target.value); setError(""); }}
                 placeholder="you@example.com"
                 required
-                className="w-full rounded-xl border border-(--border-2) bg-(--input-bg) px-4 py-3.5 text-sm text-(--fg) outline-none placeholder:text-(--fg)/20 transition focus:border-(--accent)/60 focus:ring-2 focus:ring-(--accent)/10"
+                className="w-full rounded-xl border border-(--border-2) bg-(--input-bg) px-4 py-3.5 text-sm text-(--fg) outline-none placeholder:text-(--fg)/35 transition focus:border-(--accent)/60 focus:ring-2 focus:ring-(--accent)/10"
               />
             </div>
 
@@ -81,7 +81,7 @@ export default function LoginPage() {
                 onChange={(e) => { setPassword(e.target.value); setError(""); }}
                 placeholder="••••••••"
                 required
-                className="w-full rounded-xl border border-(--border-2) bg-(--input-bg) px-4 py-3.5 text-sm text-(--fg) outline-none placeholder:text-(--fg)/20 transition focus:border-(--accent)/60 focus:ring-2 focus:ring-(--accent)/10"
+                className="w-full rounded-xl border border-(--border-2) bg-(--input-bg) px-4 py-3.5 text-sm text-(--fg) outline-none placeholder:text-(--fg)/35 transition focus:border-(--accent)/60 focus:ring-2 focus:ring-(--accent)/10"
               />
             </div>
 
@@ -100,7 +100,7 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-(--fg)/40">
+          <p className="mt-6 text-center text-sm text-(--fg)/60">
             Don&apos;t have an account?{" "}
             <Link href="/register" className="font-medium text-(--accent-2) transition hover:text-(--accent-3)">
               Sign up

@@ -170,7 +170,7 @@ export default function VideoDetailPage() {
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-(--bg) text-(--fg)">
-        <p className="text-sm text-(--fg)/40">Loading video...</p>
+        <p className="text-sm text-(--fg)/60">Loading video...</p>
       </div>
     );
   }
@@ -178,7 +178,7 @@ export default function VideoDetailPage() {
   if (!video) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-(--bg) text-(--fg)">
-        <p className="text-sm text-(--fg)/40">Video not found</p>
+        <p className="text-sm text-(--fg)/60">Video not found</p>
       </div>
     );
   }
@@ -201,7 +201,7 @@ export default function VideoDetailPage() {
             </div>
             <div>
               <div className="font-semibold tracking-tight">Videology</div>
-              <div className="text-[9px] uppercase tracking-[0.2em] text-(--fg)/35">Analysis</div>
+              <div className="text-[9px] uppercase tracking-[0.2em] text-(--fg)/55">Analysis</div>
             </div>
           </Link>
 
@@ -214,11 +214,11 @@ export default function VideoDetailPage() {
                   });
                 }
               }}
-              className="text-sm text-(--fg)/30 transition hover:text-red-400"
+              className="text-sm text-(--fg)/55 transition hover:text-red-400"
             >
               Delete
             </button>
-            <Link href="/dashboard" className="text-sm text-(--fg)/40 transition hover:text-(--fg)">
+            <Link href="/dashboard" className="text-sm text-(--fg)/60 transition hover:text-(--fg)">
               ← Dashboard
             </Link>
             <ThemeDropdown />
@@ -257,14 +257,14 @@ export default function VideoDetailPage() {
                   setTitleValue(video.title || "");
                   setEditingTitle(true);
                 }}
-                className="rounded-lg px-2 py-1 text-xs text-(--fg)/25 transition hover:bg-(--surface-2) hover:text-(--fg)/50"
+                className="rounded-lg px-2 py-1 text-xs text-(--fg)/50 transition hover:bg-(--surface-2) hover:text-(--fg)/80"
                 title="Edit title"
               >
                 ✎
               </button>
             </div>
           )}
-          <p className="mt-2 text-sm text-(--fg)/35">
+          <p className="mt-2 text-sm text-(--fg)/55">
             {video.source} · {new Date(video.createdAt).toLocaleDateString()}
             {video.duration ? ` · ${formatDuration(video.duration)}` : ""}
           </p>
@@ -299,7 +299,7 @@ export default function VideoDetailPage() {
                 return (
                   <div key={step} className="flex items-center gap-2">
                     <div className={`h-2 w-2 rounded-full ${isDone ? "bg-(--accent-2)" : "bg-(--btn)/10"}`} />
-                    <span className={`text-[10px] ${isDone ? "text-(--accent-2)" : "text-(--fg)/25"}`}>
+                    <span className={`text-[10px] ${isDone ? "text-(--accent-2)" : "text-(--fg)/50"}`}>
                       {step.charAt(0).toUpperCase() + step.slice(1)}
                     </span>
                     {i < 4 && <div className={`h-px w-4 ${isDone ? "bg-(--accent)/40" : "bg-(--btn)/10"}`} />}
@@ -334,7 +334,7 @@ export default function VideoDetailPage() {
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={`shrink-0 rounded-xl px-4 py-2.5 text-sm font-medium transition ${
-                activeTab === tab ? "bg-(--btn) text-(--btn-fg)" : "text-(--fg)/40 hover:text-(--fg) hover:bg-(--surface-2)"
+                activeTab === tab ? "bg-(--btn) text-(--btn-fg)" : "text-(--fg)/60 hover:text-(--fg) hover:bg-(--surface-2)"
               }`}
             >
               {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -426,7 +426,7 @@ export default function VideoDetailPage() {
                 </>
               ) : (
                 <div className="rounded-2xl border border-dashed border-(--border-2) bg-(--surface-0) p-10 text-center">
-                  <p className="text-sm text-(--fg)/35">
+                  <p className="text-sm text-(--fg)/55">
                     {isProcessing ? "Video is being processed..." : "Analysis not available yet."}
                   </p>
                 </div>
@@ -441,7 +441,7 @@ export default function VideoDetailPage() {
                 <TranscriptViewer text={video.transcript.text} segments={video.transcript.segments} />
               ) : (
                 <div className="rounded-2xl border border-dashed border-(--border-2) bg-(--surface-0) p-10 text-center">
-                  <p className="text-sm text-(--fg)/35">
+                  <p className="text-sm text-(--fg)/55">
                     {isProcessing ? "Transcription in progress..." : "No transcript available."}
                   </p>
                   {!isProcessing && (
@@ -464,7 +464,7 @@ export default function VideoDetailPage() {
                 <ChatInterface videoId={videoId} initialMessages={video.chatMessages} />
               ) : (
                 <div className="rounded-2xl border border-dashed border-(--border-2) bg-(--surface-0) p-10 text-center">
-                  <p className="text-sm text-(--fg)/35">
+                  <p className="text-sm text-(--fg)/55">
                     Transcribe the video first to enable AI chat.
                   </p>
                 </div>
@@ -502,7 +502,7 @@ export default function VideoDetailPage() {
                 </div>
               ) : (
                 <div className="rounded-2xl border border-dashed border-(--border-2) bg-(--surface-0) p-10 text-center">
-                  <p className="text-sm text-(--fg)/35">
+                  <p className="text-sm text-(--fg)/55">
                     {video.transcript
                       ? "Generate a quiz based on the video content."
                       : "Transcribe the video first to generate quizzes."}

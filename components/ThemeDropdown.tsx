@@ -84,7 +84,7 @@ export default function ThemeDropdown({
           height="10"
           viewBox="0 0 10 10"
           aria-hidden="true"
-          className={`text-(--fg)/50 transition-transform ${open ? "rotate-180" : ""}`}
+          className={`text-(--fg)/65 transition-transform ${open ? "rotate-180" : ""}`}
         >
           <path
             d="M1 3.5 5 7.5 9 3.5"
@@ -108,7 +108,7 @@ export default function ThemeDropdown({
             const visible = group === "daisyUI" && !showAll ? groupThemes.slice(0, 6) : groupThemes;
             return (
               <div key={group}>
-                <p className="px-3 pb-1 pt-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-(--fg)/35">
+                <p className="px-3 pb-1 pt-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-(--fg)/55">
                   {group}
                 </p>
                 <div className="grid grid-cols-2 gap-1">

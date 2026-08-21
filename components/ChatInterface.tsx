@@ -136,7 +136,7 @@ export default function ChatInterface({ videoId, initialMessages }: ChatInterfac
     <div className="flex flex-col">
       <div className="max-h-[400px] space-y-4 overflow-y-auto rounded-2xl border border-(--border) bg-(--input-bg) p-5">
         {messages.length === 0 && (
-          <p className="text-center text-sm text-(--fg)/30">
+          <p className="text-center text-sm text-(--fg)/55">
             Ask anything about this video...
           </p>
         )}
@@ -157,7 +157,7 @@ export default function ChatInterface({ videoId, initialMessages }: ChatInterfac
 
         {loading && (
           <div className="flex justify-start">
-            <div className="rounded-2xl bg-(--surface-3) px-4 py-3 text-sm text-(--fg)/40">
+            <div className="rounded-2xl bg-(--surface-3) px-4 py-3 text-sm text-(--fg)/60">
               Thinking...
             </div>
           </div>
@@ -174,7 +174,7 @@ export default function ChatInterface({ videoId, initialMessages }: ChatInterfac
           onKeyDown={(e) => e.key === "Enter" && sendMessage()}
           placeholder="Ask a question about this video..."
           disabled={loading}
-          className="flex-1 rounded-xl border border-(--border-2) bg-(--input-bg) px-4 py-3 text-sm text-(--fg) outline-none placeholder:text-(--fg)/20 transition focus:border-(--accent)/60 focus:ring-2 focus:ring-(--accent)/10"
+          className="flex-1 rounded-xl border border-(--border-2) bg-(--input-bg) px-4 py-3 text-sm text-(--fg) outline-none placeholder:text-(--fg)/35 transition focus:border-(--accent)/60 focus:ring-2 focus:ring-(--accent)/10"
         />
         <button
           onClick={sendMessage}

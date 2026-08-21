@@ -8,7 +8,7 @@ export default function NotFound() {
       <div className="w-full max-w-md text-center">
         <div className="text-6xl font-bold text-(--fg)/10">404</div>
         <h1 className="mt-4 text-2xl font-semibold text-(--fg)">Page not found</h1>
-        <p className="mt-3 text-sm leading-6 text-(--fg)/45">
+        <p className="mt-3 text-sm leading-6 text-(--fg)/60">
           The page you&apos;re looking for doesn&apos;t exist or has been moved.
         </p>
         <Link

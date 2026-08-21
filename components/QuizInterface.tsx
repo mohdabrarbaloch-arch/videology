@@ -100,7 +100,7 @@ export default function QuizInterface({ videoId, quizId, title, questionsJson }:
   }
 
   if (questions.length === 0) {
-    return <p className="text-sm text-(--fg)/40">No questions available.</p>;
+    return <p className="text-sm text-(--fg)/60">No questions available.</p>;
   }
 
   if (finished) {
@@ -108,10 +108,10 @@ export default function QuizInterface({ videoId, quizId, title, questionsJson }:
     return (
       <div className="rounded-2xl border border-(--border) bg-(--input-bg) p-8 text-center">
         <div className="text-4xl font-bold text-(--fg)">{percentage}%</div>
-        <div className="mt-2 text-sm text-(--fg)/50">
+        <div className="mt-2 text-sm text-(--fg)/65">
           {score} out of {questions.length} correct
         </div>
-        <div className="mt-6 text-sm text-(--fg)/40">
+        <div className="mt-6 text-sm text-(--fg)/60">
           {percentage >= 80 ? "Excellent work!" : percentage >= 50 ? "Good effort!" : "Keep studying!"}
         </div>
       </div>
@@ -125,10 +125,10 @@ export default function QuizInterface({ videoId, quizId, title, questionsJson }:
       )}
 
       <div className="mb-4 flex items-center justify-between">
-        <span className="text-xs text-(--fg)/40">
+        <span className="text-xs text-(--fg)/60">
           Question {currentQ + 1} of {questions.length}
         </span>
-        <span className="text-xs text-(--fg)/40">Score: {score}</span>
+        <span className="text-xs text-(--fg)/60">Score: {score}</span>
       </div>
 
       <div className="mb-4 h-1 w-full overflow-hidden rounded-full bg-(--btn)/10">
@@ -162,7 +162,7 @@ export default function QuizInterface({ videoId, quizId, title, questionsJson }:
                 disabled={answered}
                 className={`w-full rounded-xl border px-4 py-3 text-left text-sm transition ${style}`}
               >
-                <span className="mr-3 text-xs text-(--fg)/30">{String.fromCharCode(65 + i)}.</span>
+                <span className="mr-3 text-xs text-(--fg)/55">{String.fromCharCode(65 + i)}.</span>
                 {opt}
               </button>
             );
@@ -171,7 +171,7 @@ export default function QuizInterface({ videoId, quizId, title, questionsJson }:
 
         {answered && (
           <div className="mt-5 rounded-xl border border-(--border) bg-(--surface-1) p-4">
-            <p className="text-xs text-(--fg)/50">{q.explanation}</p>
+            <p className="text-xs text-(--fg)/65">{q.explanation}</p>
           </div>
         )}
       </div>

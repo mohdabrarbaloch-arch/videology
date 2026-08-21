@@ -36,12 +36,12 @@ export default async function ToolPage({ params }: Props) {
             </div>
             <div>
               <div className="font-semibold tracking-tight">Videology</div>
-              <div className="text-[9px] uppercase tracking-[0.2em] text-(--fg)/35">Tools</div>
+              <div className="text-[9px] uppercase tracking-[0.2em] text-(--fg)/55">Tools</div>
             </div>
           </Link>
 
           <div className="flex items-center gap-4">
-            <Link href="/tools" className="text-sm text-(--fg)/40 transition hover:text-(--fg)">
+            <Link href="/tools" className="text-sm text-(--fg)/60 transition hover:text-(--fg)">
               ← All tools
             </Link>
             <ThemeDropdown />
@@ -62,7 +62,7 @@ export default async function ToolPage({ params }: Props) {
           <h1 className="mt-5 text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">
             {tool.name}
           </h1>
-          <p className="mt-3 text-sm leading-6 text-(--fg)/40 sm:text-base">{tool.tagline}</p>
+          <p className="mt-3 text-sm leading-6 text-(--fg)/60 sm:text-base">{tool.tagline}</p>
         </div>
 
         <div className="mx-auto mt-10 max-w-3xl">

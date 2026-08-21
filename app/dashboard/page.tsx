@@ -97,21 +97,21 @@ export default function DashboardPage() {
                 <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-(--border-2) bg-(--surface-2) text-sm font-bold">V</div>
                 <div>
                   <div className="font-semibold tracking-tight">Videology</div>
-                  <div className="text-[9px] uppercase tracking-[0.2em] text-(--fg)/35">AI Video Intelligence</div>
+                  <div className="text-[9px] uppercase tracking-[0.2em] text-(--fg)/55">AI Video Intelligence</div>
                 </div>
               </Link>
-              <button onClick={() => setMobileMenu(false)} className="text-lg text-(--fg)/40">&times;</button>
+              <button onClick={() => setMobileMenu(false)} className="text-lg text-(--fg)/60">&times;</button>
             </div>
             <nav className="flex-1 px-3 py-6">
-              <p className="px-3 pb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-(--fg)/25">Workspace</p>
+              <p className="px-3 pb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-(--fg)/65">Workspace</p>
               <div className="space-y-1">
                 <Link href="/dashboard" onClick={() => setMobileMenu(false)} className="flex items-center gap-3 rounded-xl bg-(--surface-3) px-3 py-2.5 text-sm text-(--fg) transition">
                   <span className="flex h-7 w-7 items-center justify-center rounded-lg border border-(--border) text-xs">⌂</span>Overview
                 </Link>
-                <Link href="/tools" onClick={() => setMobileMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-(--fg)/50 transition hover:bg-(--surface-2) hover:text-(--fg)">
+                <Link href="/tools" onClick={() => setMobileMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-(--fg)/65 transition hover:bg-(--surface-2) hover:text-(--fg)">
                   <span className="flex h-7 w-7 items-center justify-center rounded-lg border border-(--border) text-xs">◧</span>Free Tools
                 </Link>
-                <Link href="/clips" onClick={() => setMobileMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-(--fg)/50 transition hover:bg-(--surface-2) hover:text-(--fg)">
+                <Link href="/clips" onClick={() => setMobileMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-(--fg)/65 transition hover:bg-(--surface-2) hover:text-(--fg)">
                   <span className="flex h-7 w-7 items-center justify-center rounded-lg border border-(--border) text-xs">✂</span>Clip Studio
                 </Link>
               </div>
@@ -120,10 +120,10 @@ export default function DashboardPage() {
               {user && (
                 <div className="mb-3 px-3">
                   <p className="text-xs font-medium text-(--fg)/60">{user.name}</p>
-                  <p className="text-[10px] text-(--fg)/30">{user.email}</p>
+                  <p className="text-[10px] text-(--fg)/55">{user.email}</p>
                 </div>
               )}
-              <button onClick={() => { setMobileMenu(false); handleLogout(); }} className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-(--fg)/40 transition hover:bg-(--surface-2) hover:text-(--fg)">
+              <button onClick={() => { setMobileMenu(false); handleLogout(); }} className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-(--fg)/60 transition hover:bg-(--surface-2) hover:text-(--fg)">
                 <span>←</span>Sign out
               </button>
             </div>
@@ -141,13 +141,13 @@ export default function DashboardPage() {
               </div>
               <div>
                 <div className="font-semibold tracking-tight">Videology</div>
-                <div className="text-[9px] uppercase tracking-[0.2em] text-(--fg)/35">AI Video Intelligence</div>
+                <div className="text-[9px] uppercase tracking-[0.2em] text-(--fg)/55">AI Video Intelligence</div>
               </div>
             </Link>
           </div>
 
           <nav className="flex-1 px-3 py-6">
-            <p className="px-3 pb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-(--fg)/25">Workspace</p>
+            <p className="px-3 pb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-(--fg)/65">Workspace</p>
 
             <div className="space-y-1">
               <Link
@@ -159,14 +159,14 @@ export default function DashboardPage() {
               </Link>
               <Link
                 href="/tools"
-                className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-(--fg)/50 transition hover:bg-(--surface-2) hover:text-(--fg)"
+                className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-(--fg)/65 transition hover:bg-(--surface-2) hover:text-(--fg)"
               >
                 <span className="flex h-7 w-7 items-center justify-center rounded-lg border border-(--border) text-xs">◧</span>
                 Free Tools
               </Link>
               <Link
                 href="/clips"
-                className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-(--fg)/50 transition hover:bg-(--surface-2) hover:text-(--fg)"
+                className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-(--fg)/65 transition hover:bg-(--surface-2) hover:text-(--fg)"
               >
                 <span className="flex h-7 w-7 items-center justify-center rounded-lg border border-(--border) text-xs">✂</span>
                 Clip Studio
@@ -178,12 +178,12 @@ export default function DashboardPage() {
             {user && (
               <div className="mb-3 px-3">
                 <p className="text-xs font-medium text-(--fg)/60">{user.name}</p>
-                <p className="text-[10px] text-(--fg)/30">{user.email}</p>
+                <p className="text-[10px] text-(--fg)/55">{user.email}</p>
               </div>
             )}
             <button
               onClick={handleLogout}
-              className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-(--fg)/40 transition hover:bg-(--surface-2) hover:text-(--fg)"
+              className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-(--fg)/60 transition hover:bg-(--surface-2) hover:text-(--fg)"
             >
               <span>←</span>
               Sign out
@@ -199,7 +199,7 @@ export default function DashboardPage() {
                 ☰
               </button>
               <div>
-                <p className="text-xs text-(--fg)/35">Workspace</p>
+                <p className="text-xs text-(--fg)/55">Workspace</p>
                 <h1 className="mt-0.5 text-lg font-semibold">Dashboard</h1>
               </div>
             </div>
@@ -233,7 +233,7 @@ export default function DashboardPage() {
               <div className="pointer-events-none absolute -right-24 -top-32 h-72 w-72 rounded-full bg-(--accent)/10 blur-[100px]" />
 
               <div className="relative max-w-2xl">
-                <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-(--border-2) bg-(--surface-2) px-3 py-1.5 text-[11px] text-(--fg)/50">
+                <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-(--border-2) bg-(--surface-2) px-3 py-1.5 text-[11px] text-(--fg)/65">
                   <span className="h-1.5 w-1.5 rounded-full bg-(--accent-2)" />
                   Videology workspace
                 </div>
@@ -242,7 +242,7 @@ export default function DashboardPage() {
                   {user ? `Welcome, ${user.name}` : "Turn any video into knowledge."}
                 </h2>
 
-                <p className="mt-4 max-w-xl text-sm leading-6 text-(--fg)/45 sm:text-base">
+                <p className="mt-4 max-w-xl text-sm leading-6 text-(--fg)/60 sm:text-base">
                   Start by giving Videology a video. The AI pipeline will transcribe, analyze, and help you learn from any video content.
                 </p>
 
@@ -265,7 +265,7 @@ export default function DashboardPage() {
               ] as [string, string][]).map(([value, label]) => (
                 <div key={label} className="rounded-2xl border border-(--border) bg-(--surface-1) p-5">
                   <div className="text-2xl font-semibold">{value}</div>
-                  <div className="mt-1 text-xs text-(--fg)/35">{label}</div>
+                  <div className="mt-1 text-xs text-(--fg)/55">{label}</div>
                 </div>
               ))}
             </section>
@@ -321,7 +321,7 @@ export default function DashboardPage() {
                   ▶
                 </div>
                 <h3 className="mt-5 text-lg font-semibold">No videos yet</h3>
-                <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-(--fg)/35">
+                <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-(--fg)/55">
                   Your analyzed videos, transcripts, summaries, quizzes, and conversations will appear here.
                 </p>
                 <Link

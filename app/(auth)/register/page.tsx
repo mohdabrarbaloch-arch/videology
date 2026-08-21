@@ -64,14 +64,14 @@ export default function RegisterPage() {
             </div>
             <div>
               <div className="text-lg font-semibold tracking-tight text-(--fg)">Videology</div>
-              <div className="text-[10px] uppercase tracking-[0.22em] text-(--fg)/40">Watch · Analyze · Learn</div>
+              <div className="text-[10px] uppercase tracking-[0.22em] text-(--fg)/60">Watch · Analyze · Learn</div>
             </div>
           </Link>
         </div>
 
         <div className="rounded-3xl border border-(--border) bg-(--surface-1) p-8">
           <h1 className="text-2xl font-semibold tracking-tight text-(--fg)">Create account</h1>
-          <p className="mt-2 text-sm text-(--fg)/40">Start analyzing videos with AI</p>
+          <p className="mt-2 text-sm text-(--fg)/60">Start analyzing videos with AI</p>
 
           <form onSubmit={handleSubmit} className="mt-8 space-y-5">
             <div>
@@ -82,7 +82,7 @@ export default function RegisterPage() {
                 onChange={(e) => { setName(e.target.value); setError(""); }}
                 placeholder="Your name"
                 required
-                className="w-full rounded-xl border border-(--border-2) bg-(--input-bg) px-4 py-3.5 text-sm text-(--fg) outline-none placeholder:text-(--fg)/20 transition focus:border-(--accent)/60 focus:ring-2 focus:ring-(--accent)/10"
+                className="w-full rounded-xl border border-(--border-2) bg-(--input-bg) px-4 py-3.5 text-sm text-(--fg) outline-none placeholder:text-(--fg)/35 transition focus:border-(--accent)/60 focus:ring-2 focus:ring-(--accent)/10"
               />
             </div>
 
@@ -94,7 +94,7 @@ export default function RegisterPage() {
                 onChange={(e) => { setEmail(e.target.value); setError(""); }}
                 placeholder="you@example.com"
                 required
-                className="w-full rounded-xl border border-(--border-2) bg-(--input-bg) px-4 py-3.5 text-sm text-(--fg) outline-none placeholder:text-(--fg)/20 transition focus:border-(--accent)/60 focus:ring-2 focus:ring-(--accent)/10"
+                className="w-full rounded-xl border border-(--border-2) bg-(--input-bg) px-4 py-3.5 text-sm text-(--fg) outline-none placeholder:text-(--fg)/35 transition focus:border-(--accent)/60 focus:ring-2 focus:ring-(--accent)/10"
               />
             </div>
 
@@ -106,7 +106,7 @@ export default function RegisterPage() {
                 onChange={(e) => { setPassword(e.target.value); setError(""); }}
                 placeholder="••••••••"
                 required
-                className="w-full rounded-xl border border-(--border-2) bg-(--input-bg) px-4 py-3.5 text-sm text-(--fg) outline-none placeholder:text-(--fg)/20 transition focus:border-(--accent)/60 focus:ring-2 focus:ring-(--accent)/10"
+                className="w-full rounded-xl border border-(--border-2) bg-(--input-bg) px-4 py-3.5 text-sm text-(--fg) outline-none placeholder:text-(--fg)/35 transition focus:border-(--accent)/60 focus:ring-2 focus:ring-(--accent)/10"
               />
             </div>
 
@@ -118,7 +118,7 @@ export default function RegisterPage() {
                 onChange={(e) => { setConfirmPassword(e.target.value); setError(""); }}
                 placeholder="••••••••"
                 required
-                className="w-full rounded-xl border border-(--border-2) bg-(--input-bg) px-4 py-3.5 text-sm text-(--fg) outline-none placeholder:text-(--fg)/20 transition focus:border-(--accent)/60 focus:ring-2 focus:ring-(--accent)/10"
+                className="w-full rounded-xl border border-(--border-2) bg-(--input-bg) px-4 py-3.5 text-sm text-(--fg) outline-none placeholder:text-(--fg)/35 transition focus:border-(--accent)/60 focus:ring-2 focus:ring-(--accent)/10"
               />
             </div>
 
@@ -137,7 +137,7 @@ export default function RegisterPage() {
             </button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-(--fg)/40">
+          <p className="mt-6 text-center text-sm text-(--fg)/60">
             Already have an account?{" "}
             <Link href="/login" className="font-medium text-(--accent-2) transition hover:text-(--accent-3)">
               Sign in
