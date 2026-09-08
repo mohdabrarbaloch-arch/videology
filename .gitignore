@@ -61,3 +61,5 @@ next-env.d.ts
 
 # downloaded binary
 yt-dlp.exe
+
+.vercel
