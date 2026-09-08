@@ -38,6 +38,12 @@ function download(url, dest) {
 }
 
 async function main() {
+  if (process.platform === "win32") {
+    // Local Windows dev uses yt-dlp.exe in the project root. The Linux
+    // binary can't run here, so skip to avoid breaking local builds.
+    console.log("Windows: skipping yt-dlp download (local dev uses yt-dlp.exe).");
+    return;
+  }
   if (fs.existsSync(ytDlpPath) && fs.statSync(ytDlpPath).size > 1_000_000) {
     console.log("yt-dlp already present, skipping download.");
     return;

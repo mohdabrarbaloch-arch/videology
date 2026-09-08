@@ -3,6 +3,10 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   serverExternalPackages: ["@ffmpeg-installer/ffmpeg"],
   output: "standalone",
+  // Bundle the build-time downloaded yt-dlp into serverless output.
+  outputFileTracingIncludes: {
+    "/*": ["./bin/**"],
+  },
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "i.ytimg.com" },
