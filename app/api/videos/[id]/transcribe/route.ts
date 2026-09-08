@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { getSession } from "@/lib/auth";
 import { transcribeAudio } from "@/lib/transcriber";
 import { getLocalTemp } from "@/lib/storage";
 import fs from "fs";
@@ -9,15 +8,10 @@ export async function POST(
   _request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const session = await getSession();
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
   const { id } = await params;
 
   const video = await db.video.findFirst({
-    where: { id, userId: session.userId },
+    where: { id },
   });
 
   if (!video) {

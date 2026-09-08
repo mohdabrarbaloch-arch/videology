@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import VideoCard from "@/components/VideoCard";
 import ThemeDropdown from "@/components/ThemeDropdown";
 
@@ -17,15 +16,7 @@ interface Video {
   analysis: { id: string } | null;
 }
 
-interface User {
-  userId: string;
-  name: string;
-  email: string;
-}
-
 export default function DashboardPage() {
-  const router = useRouter();
-  const [user, setUser] = useState<User | null>(null);
   const [videos, setVideos] = useState<Video[]>([]);
   const [loading, setLoading] = useState(true);
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -33,10 +24,6 @@ export default function DashboardPage() {
   const fetchVideos = useCallback(async () => {
     try {
       const res = await fetch("/api/videos");
-      if (res.status === 401) {
-        router.push("/login");
-        return;
-      }
       const data = await res.json();
       setVideos(data.videos || []);
     } catch {
@@ -44,25 +31,12 @@ export default function DashboardPage() {
     } finally {
       setLoading(false);
     }
-  }, [router]);
-
-  const fetchUser = useCallback(async () => {
-    try {
-      const res = await fetch("/api/auth/me");
-      if (res.ok) {
-        const data = await res.json();
-        setUser(data.user);
-      }
-    } catch {
-      // ignore
-    }
   }, []);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- initial async data fetch
-    fetchUser();
     fetchVideos();
-  }, [fetchUser, fetchVideos]);
+  }, [fetchVideos]);
 
   async function handleDelete(id: string) {
     if (!confirm("Delete this video?")) return;
@@ -75,12 +49,6 @@ export default function DashboardPage() {
     } catch {
       console.error("Failed to delete video");
     }
-  }
-
-  async function handleLogout() {
-    await fetch("/api/auth/logout", { method: "POST" });
-    router.push("/login");
-    router.refresh();
   }
 
   const analyzedCount = videos.filter((v) => v.analysis).length;
@@ -117,15 +85,9 @@ export default function DashboardPage() {
               </div>
             </nav>
             <div className="border-t border-(--border) p-4">
-              {user && (
-                <div className="mb-3 px-3">
-                  <p className="text-xs font-medium text-(--fg)/60">{user.name}</p>
-                  <p className="text-[10px] text-(--fg)/55">{user.email}</p>
-                </div>
-              )}
-              <button onClick={() => { setMobileMenu(false); handleLogout(); }} className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-(--fg)/60 transition hover:bg-(--surface-2) hover:text-(--fg)">
-                <span>←</span>Sign out
-              </button>
+              <Link href="/" onClick={() => setMobileMenu(false)} className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-(--fg)/60 transition hover:bg-(--surface-2) hover:text-(--fg)">
+                <span>←</span>Back to Home
+              </Link>
             </div>
           </aside>
         </div>
@@ -175,19 +137,13 @@ export default function DashboardPage() {
           </nav>
 
           <div className="border-t border-(--border) p-4">
-            {user && (
-              <div className="mb-3 px-3">
-                <p className="text-xs font-medium text-(--fg)/60">{user.name}</p>
-                <p className="text-[10px] text-(--fg)/55">{user.email}</p>
-              </div>
-            )}
-            <button
-              onClick={handleLogout}
-              className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-(--fg)/60 transition hover:bg-(--surface-2) hover:text-(--fg)"
+            <Link
+              href="/"
+              className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-(--fg)/40 transition hover:bg-(--surface-2) hover:text-(--fg)"
             >
               <span>←</span>
-              Sign out
-            </button>
+              Back to Home
+            </Link>
           </div>
         </aside>
 
@@ -239,7 +195,7 @@ export default function DashboardPage() {
                 </div>
 
                 <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-                  {user ? `Welcome, ${user.name}` : "Turn any video into knowledge."}
+                  Turn any video into knowledge.
                 </h2>
 
                 <p className="mt-4 max-w-xl text-sm leading-6 text-(--fg)/60 sm:text-base">

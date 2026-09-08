@@ -51,7 +51,6 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  User: 'User',
   Video: 'Video',
   Transcript: 'Transcript',
   Analysis: 'Analysis',
@@ -76,20 +75,8 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const UserScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  email: 'email',
-  password: 'password',
-  createdAt: 'createdAt'
-} as const
-
-export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
-
-
 export const VideoScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
   title: 'title',
   source: 'source',
   sourceType: 'sourceType',
@@ -158,7 +145,6 @@ export type QuizScalarFieldEnum = (typeof QuizScalarFieldEnum)[keyof typeof Quiz
 
 export const ClipJobScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
   status: 'status',
   progress: 'progress',
   error: 'error',

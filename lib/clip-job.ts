@@ -100,7 +100,6 @@ export async function processClipJob(jobId: string): Promise<void> {
       total
     );
 
-    const userId = job.userId;
     const clips: GeneratedClip[] = [];
 
     for (let i = 0; i < plans.length; i++) {
@@ -141,8 +140,8 @@ export async function processClipJob(jobId: string): Promise<void> {
         // keep plain frame thumbnail
       }
 
-      const videoKey = `clips/${userId}/${clipId}.mp4`;
-      const thumbKey = `clips/${userId}/${clipId}.jpg`;
+      const videoKey = `clips/${clipId}.mp4`;
+      const thumbKey = `clips/${clipId}.jpg`;
       const storedVideo = await putObject(
         videoKey,
         fs.readFileSync(localClip),

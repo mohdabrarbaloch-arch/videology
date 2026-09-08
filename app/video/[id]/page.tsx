@@ -49,10 +49,6 @@ export default function VideoDetailPage() {
   const fetchVideo = useCallback(async () => {
     try {
       const res = await fetch(`/api/videos/${videoId}`);
-      if (res.status === 401) {
-        router.push("/login");
-        return;
-      }
       if (!res.ok) {
         router.push("/dashboard");
         return;

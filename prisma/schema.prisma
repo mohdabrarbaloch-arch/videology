@@ -7,19 +7,8 @@ datasource db {
   provider = "postgresql"
 }
 
-model User {
-  id        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  password  String
-  createdAt DateTime @default(now())
-  videos    Video[]
-  clipJobs  ClipJob[]
-}
-
 model Video {
   id           String   @id @default(uuid())
-  userId       String
   title        String?
   source       String
   sourceType   String
@@ -32,7 +21,6 @@ model Video {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   transcript   Transcript?
   analysis     Analysis?
   chatMessages ChatMessage[]
@@ -87,7 +75,6 @@ model Quiz {
 
 model ClipJob {
   id        String   @id @default(uuid())
-  userId    String
   status    String   @default("queued")
   progress  String?
   error     String?
@@ -95,8 +82,4 @@ model ClipJob {
   result    Json?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId, createdAt])
 }

@@ -1,17 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { getSession } from "@/lib/auth";
 import { chatWithVideo } from "@/lib/ai";
 
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const session = await getSession();
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
   const { id } = await params;
   const { message } = await request.json();
 
@@ -20,7 +14,7 @@ export async function POST(
   }
 
   const video = await db.video.findFirst({
-    where: { id, userId: session.userId },
+    where: { id },
     include: {
       transcript: true,
       chatMessages: { orderBy: { createdAt: "asc" } },

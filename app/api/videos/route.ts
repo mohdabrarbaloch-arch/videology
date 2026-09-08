@@ -1,18 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { getSession } from "@/lib/auth";
 import { IS_CLOUD } from "@/lib/storage";
 import { triggerBackgroundFunction } from "@/lib/background";
 import { downloadYoutubeVideo, downloadDirectUrl, processUploadedFile } from "@/lib/video-processor";
 
 export async function GET() {
-  const session = await getSession();
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
   const videos = await db.video.findMany({
-    where: { userId: session.userId },
     orderBy: { createdAt: "desc" },
     include: {
       transcript: { select: { id: true } },
@@ -24,11 +17,6 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
-  const session = await getSession();
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
   try {
     const contentType = request.headers.get("content-type") || "";
 
@@ -50,7 +38,6 @@ export async function POST(request: NextRequest) {
 
       const video = await db.video.create({
         data: {
-          userId: session.userId,
           title: body.title || null,
           source: inputKey ? "upload" : mode,
           sourceType: inputKey ? String(body.fileType || "video") : "video",
@@ -88,10 +75,9 @@ export async function POST(request: NextRequest) {
 
       const video = await db.video.create({
         data: {
-          userId: session.userId,
-          title: result.title,
-          source: "upload",
-          sourceType: file.type,
+        title: result.title,
+        source: "upload",
+        sourceType: file.type,
           filePath: result.filePath,
           audioPath: result.audioPath,
           thumbnailUrl: result.thumbnail,
@@ -119,7 +105,6 @@ export async function POST(request: NextRequest) {
 
     const video = await db.video.create({
       data: {
-        userId: session.userId,
         title: result.title,
         source: mode || "url",
         sourceType: "video",

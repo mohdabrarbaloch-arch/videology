@@ -37,7 +37,7 @@ export async function processVideoJob(videoId: string): Promise<void> {
           : await downloadDirectUrl(url);
 
       // Upload extracted audio to storage.
-      const audioKey = `audio/${video.userId}/${video.id}.m4a`;
+      const audioKey = `audio/${video.id}.m4a`;
       if (fs.existsSync(result.audioPath)) {
         await putObject(audioKey, fs.readFileSync(result.audioPath), "audio/mp4");
         try {
@@ -97,7 +97,7 @@ export async function processVideoJob(videoId: string): Promise<void> {
       });
     }
 
-    const audioKey = `audio/${video.userId}/${video.id}.m4a`;
+    const audioKey = `audio/${video.id}.m4a`;
     if (fs.existsSync(audioPath)) {
       await putObject(audioKey, fs.readFileSync(audioPath), "audio/mp4");
     }

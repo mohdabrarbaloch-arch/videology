@@ -26,7 +26,6 @@ export type AggregateClipJob = {
 
 export type ClipJobMinAggregateOutputType = {
   id: string | null
-  userId: string | null
   status: string | null
   progress: string | null
   error: string | null
@@ -36,7 +35,6 @@ export type ClipJobMinAggregateOutputType = {
 
 export type ClipJobMaxAggregateOutputType = {
   id: string | null
-  userId: string | null
   status: string | null
   progress: string | null
   error: string | null
@@ -46,7 +44,6 @@ export type ClipJobMaxAggregateOutputType = {
 
 export type ClipJobCountAggregateOutputType = {
   id: number
-  userId: number
   status: number
   progress: number
   error: number
@@ -60,7 +57,6 @@ export type ClipJobCountAggregateOutputType = {
 
 export type ClipJobMinAggregateInputType = {
   id?: true
-  userId?: true
   status?: true
   progress?: true
   error?: true
@@ -70,7 +66,6 @@ export type ClipJobMinAggregateInputType = {
 
 export type ClipJobMaxAggregateInputType = {
   id?: true
-  userId?: true
   status?: true
   progress?: true
   error?: true
@@ -80,7 +75,6 @@ export type ClipJobMaxAggregateInputType = {
 
 export type ClipJobCountAggregateInputType = {
   id?: true
-  userId?: true
   status?: true
   progress?: true
   error?: true
@@ -165,7 +159,6 @@ export type ClipJobGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 
 export type ClipJobGroupByOutputType = {
   id: string
-  userId: string
   status: string
   progress: string | null
   error: string | null
@@ -198,7 +191,6 @@ export type ClipJobWhereInput = {
   OR?: Prisma.ClipJobWhereInput[]
   NOT?: Prisma.ClipJobWhereInput | Prisma.ClipJobWhereInput[]
   id?: Prisma.StringFilter<"ClipJob"> | string
-  userId?: Prisma.StringFilter<"ClipJob"> | string
   status?: Prisma.StringFilter<"ClipJob"> | string
   progress?: Prisma.StringNullableFilter<"ClipJob"> | string | null
   error?: Prisma.StringNullableFilter<"ClipJob"> | string | null
@@ -206,12 +198,10 @@ export type ClipJobWhereInput = {
   result?: Prisma.JsonNullableFilter<"ClipJob">
   createdAt?: Prisma.DateTimeFilter<"ClipJob"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ClipJob"> | Date | string
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type ClipJobOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   progress?: Prisma.SortOrderInput | Prisma.SortOrder
   error?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -219,7 +209,6 @@ export type ClipJobOrderByWithRelationInput = {
   result?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type ClipJobWhereUniqueInput = Prisma.AtLeast<{
@@ -227,7 +216,6 @@ export type ClipJobWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ClipJobWhereInput | Prisma.ClipJobWhereInput[]
   OR?: Prisma.ClipJobWhereInput[]
   NOT?: Prisma.ClipJobWhereInput | Prisma.ClipJobWhereInput[]
-  userId?: Prisma.StringFilter<"ClipJob"> | string
   status?: Prisma.StringFilter<"ClipJob"> | string
   progress?: Prisma.StringNullableFilter<"ClipJob"> | string | null
   error?: Prisma.StringNullableFilter<"ClipJob"> | string | null
@@ -235,12 +223,10 @@ export type ClipJobWhereUniqueInput = Prisma.AtLeast<{
   result?: Prisma.JsonNullableFilter<"ClipJob">
   createdAt?: Prisma.DateTimeFilter<"ClipJob"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ClipJob"> | Date | string
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
 export type ClipJobOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   progress?: Prisma.SortOrderInput | Prisma.SortOrder
   error?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -258,7 +244,6 @@ export type ClipJobScalarWhereWithAggregatesInput = {
   OR?: Prisma.ClipJobScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ClipJobScalarWhereWithAggregatesInput | Prisma.ClipJobScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"ClipJob"> | string
-  userId?: Prisma.StringWithAggregatesFilter<"ClipJob"> | string
   status?: Prisma.StringWithAggregatesFilter<"ClipJob"> | string
   progress?: Prisma.StringNullableWithAggregatesFilter<"ClipJob"> | string | null
   error?: Prisma.StringNullableWithAggregatesFilter<"ClipJob"> | string | null
@@ -277,12 +262,10 @@ export type ClipJobCreateInput = {
   result?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutClipJobsInput
 }
 
 export type ClipJobUncheckedCreateInput = {
   id?: string
-  userId: string
   status?: string
   progress?: string | null
   error?: string | null
@@ -301,12 +284,10 @@ export type ClipJobUpdateInput = {
   result?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutClipJobsNestedInput
 }
 
 export type ClipJobUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
   progress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -318,7 +299,6 @@ export type ClipJobUncheckedUpdateInput = {
 
 export type ClipJobCreateManyInput = {
   id?: string
-  userId: string
   status?: string
   progress?: string | null
   error?: string | null
@@ -341,7 +321,6 @@ export type ClipJobUpdateManyMutationInput = {
 
 export type ClipJobUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
   progress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -351,19 +330,8 @@ export type ClipJobUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type ClipJobListRelationFilter = {
-  every?: Prisma.ClipJobWhereInput
-  some?: Prisma.ClipJobWhereInput
-  none?: Prisma.ClipJobWhereInput
-}
-
-export type ClipJobOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
-}
-
 export type ClipJobCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   progress?: Prisma.SortOrder
   error?: Prisma.SortOrder
@@ -375,7 +343,6 @@ export type ClipJobCountOrderByAggregateInput = {
 
 export type ClipJobMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   progress?: Prisma.SortOrder
   error?: Prisma.SortOrder
@@ -385,7 +352,6 @@ export type ClipJobMaxOrderByAggregateInput = {
 
 export type ClipJobMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   progress?: Prisma.SortOrder
   error?: Prisma.SortOrder
@@ -393,160 +359,10 @@ export type ClipJobMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
-export type ClipJobCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.ClipJobCreateWithoutUserInput, Prisma.ClipJobUncheckedCreateWithoutUserInput> | Prisma.ClipJobCreateWithoutUserInput[] | Prisma.ClipJobUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.ClipJobCreateOrConnectWithoutUserInput | Prisma.ClipJobCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.ClipJobCreateManyUserInputEnvelope
-  connect?: Prisma.ClipJobWhereUniqueInput | Prisma.ClipJobWhereUniqueInput[]
-}
-
-export type ClipJobUncheckedCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.ClipJobCreateWithoutUserInput, Prisma.ClipJobUncheckedCreateWithoutUserInput> | Prisma.ClipJobCreateWithoutUserInput[] | Prisma.ClipJobUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.ClipJobCreateOrConnectWithoutUserInput | Prisma.ClipJobCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.ClipJobCreateManyUserInputEnvelope
-  connect?: Prisma.ClipJobWhereUniqueInput | Prisma.ClipJobWhereUniqueInput[]
-}
-
-export type ClipJobUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.ClipJobCreateWithoutUserInput, Prisma.ClipJobUncheckedCreateWithoutUserInput> | Prisma.ClipJobCreateWithoutUserInput[] | Prisma.ClipJobUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.ClipJobCreateOrConnectWithoutUserInput | Prisma.ClipJobCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.ClipJobUpsertWithWhereUniqueWithoutUserInput | Prisma.ClipJobUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.ClipJobCreateManyUserInputEnvelope
-  set?: Prisma.ClipJobWhereUniqueInput | Prisma.ClipJobWhereUniqueInput[]
-  disconnect?: Prisma.ClipJobWhereUniqueInput | Prisma.ClipJobWhereUniqueInput[]
-  delete?: Prisma.ClipJobWhereUniqueInput | Prisma.ClipJobWhereUniqueInput[]
-  connect?: Prisma.ClipJobWhereUniqueInput | Prisma.ClipJobWhereUniqueInput[]
-  update?: Prisma.ClipJobUpdateWithWhereUniqueWithoutUserInput | Prisma.ClipJobUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.ClipJobUpdateManyWithWhereWithoutUserInput | Prisma.ClipJobUpdateManyWithWhereWithoutUserInput[]
-  deleteMany?: Prisma.ClipJobScalarWhereInput | Prisma.ClipJobScalarWhereInput[]
-}
-
-export type ClipJobUncheckedUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.ClipJobCreateWithoutUserInput, Prisma.ClipJobUncheckedCreateWithoutUserInput> | Prisma.ClipJobCreateWithoutUserInput[] | Prisma.ClipJobUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.ClipJobCreateOrConnectWithoutUserInput | Prisma.ClipJobCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.ClipJobUpsertWithWhereUniqueWithoutUserInput | Prisma.ClipJobUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.ClipJobCreateManyUserInputEnvelope
-  set?: Prisma.ClipJobWhereUniqueInput | Prisma.ClipJobWhereUniqueInput[]
-  disconnect?: Prisma.ClipJobWhereUniqueInput | Prisma.ClipJobWhereUniqueInput[]
-  delete?: Prisma.ClipJobWhereUniqueInput | Prisma.ClipJobWhereUniqueInput[]
-  connect?: Prisma.ClipJobWhereUniqueInput | Prisma.ClipJobWhereUniqueInput[]
-  update?: Prisma.ClipJobUpdateWithWhereUniqueWithoutUserInput | Prisma.ClipJobUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.ClipJobUpdateManyWithWhereWithoutUserInput | Prisma.ClipJobUpdateManyWithWhereWithoutUserInput[]
-  deleteMany?: Prisma.ClipJobScalarWhereInput | Prisma.ClipJobScalarWhereInput[]
-}
-
-export type ClipJobCreateWithoutUserInput = {
-  id?: string
-  status?: string
-  progress?: string | null
-  error?: string | null
-  params?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  result?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type ClipJobUncheckedCreateWithoutUserInput = {
-  id?: string
-  status?: string
-  progress?: string | null
-  error?: string | null
-  params?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  result?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type ClipJobCreateOrConnectWithoutUserInput = {
-  where: Prisma.ClipJobWhereUniqueInput
-  create: Prisma.XOR<Prisma.ClipJobCreateWithoutUserInput, Prisma.ClipJobUncheckedCreateWithoutUserInput>
-}
-
-export type ClipJobCreateManyUserInputEnvelope = {
-  data: Prisma.ClipJobCreateManyUserInput | Prisma.ClipJobCreateManyUserInput[]
-  skipDuplicates?: boolean
-}
-
-export type ClipJobUpsertWithWhereUniqueWithoutUserInput = {
-  where: Prisma.ClipJobWhereUniqueInput
-  update: Prisma.XOR<Prisma.ClipJobUpdateWithoutUserInput, Prisma.ClipJobUncheckedUpdateWithoutUserInput>
-  create: Prisma.XOR<Prisma.ClipJobCreateWithoutUserInput, Prisma.ClipJobUncheckedCreateWithoutUserInput>
-}
-
-export type ClipJobUpdateWithWhereUniqueWithoutUserInput = {
-  where: Prisma.ClipJobWhereUniqueInput
-  data: Prisma.XOR<Prisma.ClipJobUpdateWithoutUserInput, Prisma.ClipJobUncheckedUpdateWithoutUserInput>
-}
-
-export type ClipJobUpdateManyWithWhereWithoutUserInput = {
-  where: Prisma.ClipJobScalarWhereInput
-  data: Prisma.XOR<Prisma.ClipJobUpdateManyMutationInput, Prisma.ClipJobUncheckedUpdateManyWithoutUserInput>
-}
-
-export type ClipJobScalarWhereInput = {
-  AND?: Prisma.ClipJobScalarWhereInput | Prisma.ClipJobScalarWhereInput[]
-  OR?: Prisma.ClipJobScalarWhereInput[]
-  NOT?: Prisma.ClipJobScalarWhereInput | Prisma.ClipJobScalarWhereInput[]
-  id?: Prisma.StringFilter<"ClipJob"> | string
-  userId?: Prisma.StringFilter<"ClipJob"> | string
-  status?: Prisma.StringFilter<"ClipJob"> | string
-  progress?: Prisma.StringNullableFilter<"ClipJob"> | string | null
-  error?: Prisma.StringNullableFilter<"ClipJob"> | string | null
-  params?: Prisma.JsonNullableFilter<"ClipJob">
-  result?: Prisma.JsonNullableFilter<"ClipJob">
-  createdAt?: Prisma.DateTimeFilter<"ClipJob"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"ClipJob"> | Date | string
-}
-
-export type ClipJobCreateManyUserInput = {
-  id?: string
-  status?: string
-  progress?: string | null
-  error?: string | null
-  params?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  result?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type ClipJobUpdateWithoutUserInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  progress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  params?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  result?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type ClipJobUncheckedUpdateWithoutUserInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  progress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  params?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  result?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type ClipJobUncheckedUpdateManyWithoutUserInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  progress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  params?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  result?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
 
 
 export type ClipJobSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  userId?: boolean
   status?: boolean
   progress?: boolean
   error?: boolean
@@ -554,12 +370,10 @@ export type ClipJobSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   result?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["clipJob"]>
 
 export type ClipJobSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  userId?: boolean
   status?: boolean
   progress?: boolean
   error?: boolean
@@ -567,12 +381,10 @@ export type ClipJobSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   result?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["clipJob"]>
 
 export type ClipJobSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  userId?: boolean
   status?: boolean
   progress?: boolean
   error?: boolean
@@ -580,12 +392,10 @@ export type ClipJobSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   result?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["clipJob"]>
 
 export type ClipJobSelectScalar = {
   id?: boolean
-  userId?: boolean
   status?: boolean
   progress?: boolean
   error?: boolean
@@ -595,25 +405,13 @@ export type ClipJobSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ClipJobOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "status" | "progress" | "error" | "params" | "result" | "createdAt" | "updatedAt", ExtArgs["result"]["clipJob"]>
-export type ClipJobInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-}
-export type ClipJobIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-}
-export type ClipJobIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-}
+export type ClipJobOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "status" | "progress" | "error" | "params" | "result" | "createdAt" | "updatedAt", ExtArgs["result"]["clipJob"]>
 
 export type $ClipJobPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ClipJob"
-  objects: {
-    user: Prisma.$UserPayload<ExtArgs>
-  }
+  objects: {}
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    userId: string
     status: string
     progress: string | null
     error: string | null
@@ -1015,7 +813,6 @@ readonly fields: ClipJobFieldRefs;
  */
 export interface Prisma__ClipJobClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1046,7 +843,6 @@ export interface Prisma__ClipJobClient<T, Null = never, ExtArgs extends runtime.
  */
 export interface ClipJobFieldRefs {
   readonly id: Prisma.FieldRef<"ClipJob", 'String'>
-  readonly userId: Prisma.FieldRef<"ClipJob", 'String'>
   readonly status: Prisma.FieldRef<"ClipJob", 'String'>
   readonly progress: Prisma.FieldRef<"ClipJob", 'String'>
   readonly error: Prisma.FieldRef<"ClipJob", 'String'>
@@ -1071,10 +867,6 @@ export type ClipJobFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Inter
    */
   omit?: Prisma.ClipJobOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ClipJobInclude<ExtArgs> | null
-  /**
    * Filter, which ClipJob to fetch.
    */
   where: Prisma.ClipJobWhereUniqueInput
@@ -1093,10 +885,6 @@ export type ClipJobFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.ClipJobOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ClipJobInclude<ExtArgs> | null
-  /**
    * Filter, which ClipJob to fetch.
    */
   where: Prisma.ClipJobWhereUniqueInput
@@ -1114,10 +902,6 @@ export type ClipJobFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the ClipJob
    */
   omit?: Prisma.ClipJobOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ClipJobInclude<ExtArgs> | null
   /**
    * Filter, which ClipJob to fetch.
    */
@@ -1167,10 +951,6 @@ export type ClipJobFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.ClipJobOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ClipJobInclude<ExtArgs> | null
-  /**
    * Filter, which ClipJob to fetch.
    */
   where?: Prisma.ClipJobWhereInput
@@ -1218,10 +998,6 @@ export type ClipJobFindManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the ClipJob
    */
   omit?: Prisma.ClipJobOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ClipJobInclude<ExtArgs> | null
   /**
    * Filter, which ClipJobs to fetch.
    */
@@ -1271,10 +1047,6 @@ export type ClipJobCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.ClipJobOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ClipJobInclude<ExtArgs> | null
-  /**
    * The data needed to create a ClipJob.
    */
   data: Prisma.XOR<Prisma.ClipJobCreateInput, Prisma.ClipJobUncheckedCreateInput>
@@ -1308,10 +1080,6 @@ export type ClipJobCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensi
    */
   data: Prisma.ClipJobCreateManyInput | Prisma.ClipJobCreateManyInput[]
   skipDuplicates?: boolean
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ClipJobIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1326,10 +1094,6 @@ export type ClipJobUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the ClipJob
    */
   omit?: Prisma.ClipJobOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ClipJobInclude<ExtArgs> | null
   /**
    * The data needed to update a ClipJob.
    */
@@ -1382,10 +1146,6 @@ export type ClipJobUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensi
    * Limit how many ClipJobs to update.
    */
   limit?: number
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ClipJobIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1400,10 +1160,6 @@ export type ClipJobUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the ClipJob
    */
   omit?: Prisma.ClipJobOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ClipJobInclude<ExtArgs> | null
   /**
    * The filter to search for the ClipJob to update in case it exists.
    */
@@ -1430,10 +1186,6 @@ export type ClipJobDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the ClipJob
    */
   omit?: Prisma.ClipJobOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ClipJobInclude<ExtArgs> | null
   /**
    * Filter which ClipJob to delete.
    */
@@ -1466,8 +1218,4 @@ export type ClipJobDefaultArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the ClipJob
    */
   omit?: Prisma.ClipJobOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ClipJobInclude<ExtArgs> | null
 }

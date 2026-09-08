@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import { v4 as uuidv4 } from "uuid";
-import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { putObject, IS_CLOUD } from "@/lib/storage";
 import { processClipJob } from "@/lib/clip-job";
@@ -10,11 +9,6 @@ import { triggerBackgroundFunction } from "@/lib/background";
 export const runtime = "nodejs";
 
 export async function POST(request: NextRequest) {
-  const session = await getSession();
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
   try {
     const contentType = request.headers.get("content-type") || "";
 
@@ -53,7 +47,7 @@ export async function POST(request: NextRequest) {
         // reference it by key from the background pipeline.
         const id = uuidv4();
         const ext = path.extname(file.name) || ".mp4";
-        const key = `uploads/${session.userId}/${id}${ext}`;
+        const key = `uploads/${id}${ext}`;
         await putObject(key, Buffer.from(await file.arrayBuffer()), file.type || "video/mp4");
         params = {
           inputKey: key,
@@ -92,7 +86,6 @@ export async function POST(request: NextRequest) {
 
     const job = await db.clipJob.create({
       data: {
-        userId: session.userId,
         status: "queued",
         progress: "Queued...",
         params: params as object,
