@@ -9,7 +9,11 @@ export default defineConfig({
     path: "prisma/migrations",
   },
   datasource: {
+    // Prefer DIRECT_URL (port 5432) so `prisma migrate` uses a direct
+    // connection — the pooler (6543) blocks advisory locks. Runtime client
+    // (lib/db.ts) still uses DATABASE_URL (pooler) for serverless.
     url:
+      process.env["DIRECT_URL"] ||
       process.env["DATABASE_URL"] ||
       "postgresql://postgres:postgres@localhost:5432/videology",
   },
