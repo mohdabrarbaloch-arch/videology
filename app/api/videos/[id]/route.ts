@@ -86,15 +86,10 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const session = await getSession();
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
   const { id } = await params;
 
   const video = await db.video.findFirst({
-    where: { id, userId: session.userId },
+    where: { id },
   });
 
   if (!video) {
